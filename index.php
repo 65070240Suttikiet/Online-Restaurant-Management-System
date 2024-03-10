@@ -301,11 +301,13 @@ if (isset($_GET["mail"]) && isset($_GET["pass"])) {
                     <label>อีเมล</label>
                 </div>
                 <div class="input-box">
-                    <span clasfs="icon">
+                    <span class="icon">
                         <ion-icon name="lock-closed-outline"></ion-icon>
                     </span>
                     <input type="password" name="pass" required>
-                    <label>รหัสผ่าน</label>
+                    <label>Password</label>
+                </div>
+                <div class="remember-forgot">
                 </div>
                 <a href="reservation.php">
                     <button type="submit" class="btn" id="btnlogin" name="login" value="Login">เข้าสู่ระบบ</button>
