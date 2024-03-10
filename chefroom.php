@@ -266,13 +266,13 @@ $result1 = mysqli_query($conn, $sql1);
             <ul class="nav__list">
                 <li class="nav__item"><i style="color: aliceblue;" class="fa-solid fa-cookie-bite"></i></li>
                  
-                <li class="nav__item"><a href="login.php" class="nav__link">Log Out</a></li>
+                <li class="nav__item"><a href="login.php" class="nav__link">ออกจากระบบ</a></li>
             </ul>
         </nav>
         <ion-icon name="menu-outline" class="header__toggle" id="toggle-menu"></ion-icon>
     </header>
     <div class="container">
-        <h1 class="top">CHEF</h1>
+        <h1 class="top">เชฟ</h1>
         <div class="grid-container">
             <form action="cheffood.php" method="post">
                 <div class="row1">
