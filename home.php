@@ -76,8 +76,8 @@ $username = $row['username'];
 
         .nav {
             width: 50%;
-            padding-left: 32%;
-            padding-right: 3%;
+            padding-left: 26%;
+            padding-right: 0%;
         }
 
         .nav__list {
@@ -87,8 +87,6 @@ $username = $row['username'];
         .nav__item {
             margin: 0 14px;
         }
-
-        /* ... (your existing CSS code) ... */
 
         .nav__link {
             padding: 10px 0px 5px 0px;
@@ -355,10 +353,8 @@ $username = $row['username'];
         <nav class="nav" id="nav-menu">
             <ion-icon name="close-outline" class="header__close" id="close-menu"></ion-icon>
             <ul class="nav__list">
-                <!-- <li class="nav__item"><a href="#" class="nav__link">Home</a></li> -->
-                <!-- <li class="nav__item"><a href="reservation.php" class="nav__link">Reservation</a></li> -->
-                <li class="nav__item"><a href="history.php" class="nav__link">History</a></li>
-                <li class="nav__item"><a href="logout.php" class="nav__link">Logout</a></li>
+                <li class="nav__item"><a href="history.php" class="nav__link">ประวัติการจอง</a></li>
+                <li class="nav__item"><a href="logout.php" class="nav__link">ออกจากระบบ</a></li>
             </ul>
         </nav>
         <ion-icon name="menu-outline" class="header__toggle" id="toggle-menu"></ion-icon>
@@ -385,8 +381,7 @@ $username = $row['username'];
 
     <div class="course1" style="margin-top: 30%;">
         <div class="photo-course1" style="border: 10px;">
-            <img src="image1_0.jpg" id="course-img" class="" style="width: 100%; height: 800px; padding: 80px; 
-              ">
+            <img src="image1_0.jpg" id="course-img" class="" style="width: 100%; height: 800px; padding: 80px; ">
         </div>
         <div class="text-course1">
             <div style="margin: 0px 100px 0px 100px;">
@@ -403,7 +398,7 @@ $username = $row['username'];
         <div class="text-course2">
             <div style="margin: 0px 100px 0px 100px;">
                 <i id="course-icon" class="fa-solid fa-khanda" style="color: #cab99f ;font-size: 100px; margin-bottom: 70px;"></i>
-                <h1>Samurai Sushi</h1>
+                <h1>Samurai Omakase</h1>
                 <br>
                 <p>คอร์สโอมากาเสะที่ออกแบบมาเพื่อนักชิมที่ต้องการสัมผัสประสบการณ์การทานอาหารญี่ปุ่นแบบสุดยอด คอร์สนี้ได้รับแรงบันดาลใจจากวิถีชีวิตของซามูไร เน้นความพิถีพิถันในการคัดสรรวัตถุดิบ เทคนิคการปรุงอาหารชั้นสูง และการนำเสนอที่ประณีต</p>
                 <br>

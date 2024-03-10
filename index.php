@@ -53,10 +53,10 @@ if (isset($_GET["mail"]) && isset($_GET["pass"])) {
     <title>Login</title>
     <link rel="stylesheet" href="Loginstyle.css">
     <style>
-        @import url(https://db.onlinewebfonts.com/c/c6c85088ca87416b9d0d27feecdd82f5?family=Iskry+Bold);
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap');
 
         * {
-            font-family: "Iskry Bold";
+            font-family: "Noto Sans Thai", sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -67,75 +67,9 @@ if (isset($_GET["mail"]) && isset($_GET["pass"])) {
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            /* background-color: #000000; */
             background: url(https://images.unsplash.com/photo-1504416285472-eccf03dd31eb?q=80&w=2944&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D) no-repeat;
             background-size: cover;
             background-position: center;
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 8px 100px;
-            background-color: #0000006a;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 99;
-        }
-
-        .logo {
-            font-size: 2em;
-            color: #FFC700;
-            user-select: none;
-        }
-
-        .navigation a {
-            position: relative;
-            font-size: 0.8em;
-            color: #FFC700;
-            text-decoration: none;
-            font-weight: 500;
-            margin-left: 40px;
-        }
-
-        .navigation a::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -6px;
-            width: 100%;
-            height: 1px;
-            background: #fff;
-            border-radius: 5px;
-            transform: scaleX(0);
-            transition: transform .5s;
-        }
-
-        .navigation a:hover:after {
-            transform: scaleX(1);
-        }
-
-        .navigation .btnLogin-popup {
-            width: 90px;
-            height: 50px;
-            background: transparent;
-            border: 1px solid #FFC700;
-            outline: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.8em;
-            color: #FFC700;
-            font-weight: 500;
-            margin-left: 40px;
-            transition: 0.5s;
-        }
-
-        .navigation .btnProfile-popup:hover {
-            transform-origin: left;
-            transform: scaleX(1);
         }
 
         .wrapper {
@@ -201,7 +135,7 @@ if (isset($_GET["mail"]) && isset($_GET["pass"])) {
             align-items: center;
         }
 
-        .form-box h2 {
+            .form-box h2 {
             font-size: 2em;
             text-align: center;
         }
@@ -306,118 +240,96 @@ if (isset($_GET["mail"]) && isset($_GET["pass"])) {
 </head>
 
 <body>
-    <!-- https://d1rxvdm0rjmjgy.cloudfront.net/srv/images/sushi-chef-omakase-1600x900.jpg -->
-
-    <!-- แถบ navigate bar -->
-    <div>
-
-        <nav class="navigation">
-            <!-- <a href="#">HOTELS & ROOMS</a>
-            <a href="#">ACTIVITY</a>
-            <a href="#">CART</a>
-            <a href="#">CREATE-ACCOUNT</a>
-            <a href="#">SIGN-IN</a> -->
-            <!-- <button class="btnLogin-popup">Login</button> -->
-        </nav>
-    </div>
-
     <!-- กรอบ Login และ Register -->
     <div class="wrapper">
         <!-- หน้า Login -->
         <div class="form-box login">
 
-            <h2>Login</h2>
+            <h2>เข้าสู่ระบบ</h2>
             <form>
                 <div class="input-box">
                     <span class="icon">
                         <ion-icon name="mail-outline"></ion-icon>
                     </span>
                     <input type="email" name="mail" required>
-                    <label>Email</label>
+                    <label>อีเมล</label>
                 </div>
                 <div class="input-box">
                     <span class="icon">
                         <ion-icon name="lock-closed-outline"></ion-icon>
                     </span>
                     <input type="password" name="pass" required>
-                    <label>Password</label>
+                    <label>รหัสผ่าน</label>
                 </div>
                 <div class="remember-forgot">
-                    <!-- <label><input type="checkbox" name="checkbox"> -->
-                    <!-- Remember me</label> -->
-                    <!-- <a href="#">Forgot password?</a> -->
                 </div>
                 <a href="reservation.php">
-                    <button type="submit" class="btn" id="btnlogin" name="login" value="Login">Log in</button>
+                    <button type="submit" class="btn" id="btnlogin" name="login" value="Login">เข้าสู่ระบบ</button>
                 </a>
                 <div class="login-register">
-                    <p>Don't have an account?
-                        <a href="#" class="register-link">Register</a>
+                    <p>ไม่มีบัญชี?
+                        <a href="#" class="register-link">สมัครสมาชิก</a>
                     </p>
                 </div>
             </form>
         </div>
         <!-- หน้า Register -->
         <div class="form-box register">
-            <h2>Registration</h2>
+            <h2>สมัครสมาชิก</h2>
             <form action="register_db.php" method="POST">
                 <div class="input-box">
                     <span class="icon">
                         <ion-icon name="people-outline"></ion-icon>
                     </span>
                     <input type="firstname" name="first_name" required>
-                    <label>First name</label>
+                    <label>ชื่อจริง</label>
                 </div>
                 <div class="input-box">
                     <span class="icon">
                         <ion-icon name="people-outline"></ion-icon>
                     </span>
                     <input type="lastname" name="last_name" required>
-                    <label>Lastname</label>
+                    <label>นามสกุล</label>
                 </div>
                 <div class="input-box">
                     <span class="icon">
                         <ion-icon name="call-outline"></ion-icon>
                     </span>
                     <input type="number" name="phone" required>
-                    <label>Phone</label>
+                    <label>เบอร์โทรศัพท์</label>
                 </div>
                 <div class="input-box">
                     <span class="icon">
                         <ion-icon name="mail-outline"></ion-icon>
                     </span>
                     <input type="email" name="mail" required>
-                    <label>Email</label>
+                    <label>อีเมล</label>
                 </div>
                 <div class="input-box">
                     <span class="icon">
                         <ion-icon name="id-card-outline"></ion-icon>
                     </span>
                     <input type="text" name="username" required>
-                    <label>Username</label>
+                    <label>ชื่อผู้ใช้</label>
                 </div>
                 <div class="input-box">
                     <span class="icon">
                         <ion-icon name="lock-closed-outline"></ion-icon>
                     </span>
                     <input type="password" name="password" required>
-                    <label>Password</label>
+                    <label>รหัสผ่าน</label>
                 </div>
                 <div class="input-box">
                     <span class="icon">
                         <ion-icon name="lock-closed-outline"></ion-icon>
                     </span>
                     <input type="password" name="password" required>
-                    <label>Confirm Password</label>
+                    <label>ยืนยันรหัสผ่าน</label>
                 </div>
-                <!-- <div class="remember-forgot">
-                    <label><input type="checkbox">
-                        I agree to terms & conditions </label>
-                </div> -->
-                <button type="submit" class="btn" name="btnregis">Register</button>
+                <button type="submit" class="btn" name="btnregis">สมัครสมาชิก</button>
                 <div class="login-register">
-                    <p>Already have an account?
-                        <a href="#" class="login-link">Login</a>
+                    <p>มีบัญชีอยู่แล้ว?
+                        <a href="#" class="login-link">เข้าสู่ระบบ</a>
                     </p>
                 </div>
             </form>
@@ -446,5 +358,4 @@ if (isset($_GET["mail"]) && isset($_GET["pass"])) {
         });
     </script>
 </body>
-
 </html>
