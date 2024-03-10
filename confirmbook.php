@@ -100,8 +100,8 @@ if (isset($_POST["cancel"])) {
 
         .nav {
             width: 50%;
-            padding-left: 26%;
-            padding-right: 3%;
+            padding-left: 20%;
+            padding-right: 0%;
         }
 
         .nav__list {
@@ -117,7 +117,7 @@ if (isset($_POST["cancel"])) {
             padding: 10px 0px 5px 0px;
             margin-left: 10px;
             color: black;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: 500;
             border-radius: 5px;
             position: relative;
