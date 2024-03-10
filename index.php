@@ -72,52 +72,6 @@ if (isset($_GET["mail"]) && isset($_GET["pass"])) {
             background-position: center;
         }
 
-        .navigation a {
-            position: relative;
-            font-size: 0.8em;
-            color: #FFC700;
-            text-decoration: none;
-            font-weight: 500;
-            margin-left: 40px;
-        }
-
-        .navigation a::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -6px;
-            width: 100%;
-            height: 1px;
-            background: #fff;
-            border-radius: 5px;
-            transform: scaleX(0);
-            transition: transform .5s;
-        }
-
-        .navigation a:hover:after {
-            transform: scaleX(1);
-        }
-
-        .navigation .btnLogin-popup {
-            width: 90px;
-            height: 50px;
-            background: transparent;
-            border: 1px solid #FFC700;
-            outline: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.8em;
-            color: #FFC700;
-            font-weight: 500;
-            margin-left: 40px;
-            transition: 0.5s;
-        }
-
-        .navigation .btnProfile-popup:hover {
-            transform-origin: left;
-            transform: scaleX(1);
-        }
-
         .wrapper {
             position: relative;
             width: 400px;
@@ -181,7 +135,7 @@ if (isset($_GET["mail"]) && isset($_GET["pass"])) {
             align-items: center;
         }
 
-        .form-box h2 {
+            .form-box h2 {
             font-size: 2em;
             text-align: center;
         }
