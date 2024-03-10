@@ -135,67 +135,13 @@ if (isset($_POST['sub'])) {
         display: none;
     }
 
-    @media screen and (max-width: 768px) {
-        header {
-            height: 48px;
-            justify-content: space-between;
-            padding: 0 28px;
-        }
-
-        .logo a {
-            font-size: 0.9rem;
-        }
-
-        .logo img {
-            width: 30px;
-        }
-
-        .header__toggle {
-            display: inline;
-            color: #eeee;
-            font-size: 24px;
-        }
-
-        .header__close {
-            position: absolute;
-            right: 24px;
-            display: block;
-            font-size: 24px;
-            border-radius: 50%;
-        }
-
-        .header__close:hover {
-            background-color: #00adb5;
-        }
-
-        .nav {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            background-color: #222831;
-            color: #eeee;
-            width: 60%;
-            height: 100vh;
-            padding: 24px 0;
-            z-index: 100;
-            transition: 0.5s;
-            border-radius: 0 0 0 50%;
-        }
-
-        .nav__list {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .nav__item {
-            margin: 2rem 0;
-        }
-
-        .show {
-            right: 0;
-        }
+    body {
+        min-height: 100vh;
+        background: url(https://images.unsplash.com/photo-1571866735550-7b1ae3bdb144?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D) no-repeat;
+        background-size: cover;
+        background-position: center;
+        color: white;
     }
-
 
     .content {
         display: flex;
@@ -214,8 +160,7 @@ if (isset($_POST['sub'])) {
         border-radius: 14px;
     }
 
-    .btn {
-        display: inline-block;
+    .btn-primary {
         width: 200px;
         padding: 8px 16px;
         border-radius: 9px;
@@ -223,31 +168,15 @@ if (isset($_POST['sub'])) {
         font-weight: bold;
         text-align: center;
         cursor: pointer;
-        transition: transform 0.2s ease-in-out;
-    }
-
-    .btn-primary {
         background-color: #4CAF50;
         color: white;
         border: none;
+        transition: transform 0.2s ease-in-out;
     }
 
     .btn-primary:hover {
         background-color: #45a049;
         transform: scale(1.05);
-        /* Slight scale up on hover */
-    }
-
-    body {
-        /* display: flex;
-            justify-content: center;
-            align-items: center;*/
-        min-height: 100vh;
-        /* background-color: #000000; */
-        background: url(https://images.unsplash.com/photo-1571866735550-7b1ae3bdb144?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D) no-repeat;
-        background-size: cover;
-        background-position: center;
-        color: white;
     }
 
     .form {
@@ -284,7 +213,7 @@ if (isset($_POST['sub'])) {
                 <label for="date" class="">Date - Required</label><br>
                 <input type="date" id="date" class="date" name="date" style="color:black;">
             </div>
-            <button name="sub" class="btn btn-primary">ยืนยัน</button>
+            <button name="sub" class="btn-primary">ยืนยัน</button>
         </form>
         <p class="" style="text-align: center;">Gangnam Omakase คือที่ที่เราไม่เพียงแค่สัมผัสรสชาติ <br> แต่ยังสัมผัสความอบอุ่นและความสุขที่มาพร้อมกับบรรยากาศและการบริการที่ดี"</p>
     </div>
@@ -292,16 +221,6 @@ if (isset($_POST['sub'])) {
 <script>
     var today = new Date().toISOString().split('T')[0];
     document.getElementById("date").setAttribute("min", today);
-    const navMenu = document.getElementById('nav-menu'),
-        toggleMenu = document.getElementById('toggle-menu'),
-        closeMenu = document.getElementById('close-menu')
-
-    toggleMenu.addEventListener('click', () => {
-        navMenu.classList.toggle('show')
-    })
-    closeMenu.addEventListener('click', () => {
-        navMenu.classList.remove('show')
-    })
 </script>
 
 </html>

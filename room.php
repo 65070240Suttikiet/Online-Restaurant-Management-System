@@ -12,7 +12,6 @@ if (isset($_POST['sub'])) {
     $bookid = mysqli_query($conn, $sqlbook);
     $row = mysqli_fetch_assoc($bookid);
     $bookingid = $row["booking_id"];
-    echo $bookingid;
     $sql = "UPDATE booking
     SET room_id = '$roomid'
     WHERE booking_id = '$bookingid'";
@@ -36,6 +35,7 @@ $result = mysqli_query($conn, $sql);
 </head>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap');
+
     @font-face {
         font-family: myWebFont;
         src: url(MN\ DONBURI.ttf);
@@ -45,7 +45,7 @@ $result = mysqli_query($conn, $sql);
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        
+
     }
 
     a {
@@ -156,6 +156,7 @@ $result = mysqli_query($conn, $sql);
         gap: 40px;
         padding: 40px;
     }
+
     h1 {
         font-family: myWebFont;
 
@@ -163,24 +164,24 @@ $result = mysqli_query($conn, $sql);
 
     .btn.btn-outline {
         padding: 18px 30px;
-        /* Adjust padding as needed */
     }
 
     hr {
         width: 50%;
         border: none;
         border-top: 2px solid #000000;
-        /* Green border color */
         margin-top: 20px;
         margin-bottom: 20px;
     }
-    p,input{
+
+    p,
+    input {
         font-family: "Noto Sans Thai", sans-serif;
     }
 </style>
 
 <body>
-<header>
+    <header>
         <div class="logo">
             <img src="logo.png" alt="">
             <a href="home.php" class="header__logo">Gangnam Omakase</a>
@@ -197,25 +198,28 @@ $result = mysqli_query($conn, $sql);
         <ion-icon name="menu-outline" class="header__toggle" id="toggle-menu"></ion-icon>
     </header>
     <div class="all">
-        <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Omakase Room</h1>
+        <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">Omakase Room</h1>
         <hr>
         <div class="content">
             <?php while ($row = $result->fetch_assoc()) { ?>
                 <form action="" method="post">
                     <div class="max-w-sm rounded overflow-hidden shadow-lg">
-                        <img class="h-64" src="<?php echo $row['room_img'] ?>" alt="Sunset in the mountains">
+                        <img class="h-64" src="<?php echo $row['room_img'] ?>" alt="">
                         <div class="px-6 py-4">
                             <div class="font-bold text-xl mb-2"><?php echo $row['room_name'] ?></div>
                             <p class="text-gray-700 text-base"><?php echo $row['room_detail'] ?></p>
                         </div>
                         <div class="p-6 pt-0 flex justify-end">
                             <input type="hidden" name="room_id" value="<?php echo $row['room_id'] ?>">
-                            <input class="btn btn-outline" type="submit" name="sub" value="จอง" class="rounded-lg bg-blue-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none">
+                            <input class="btn btn-outline" type="submit" name="sub" value="จอง" class="rounded-lg bg-blue-500 py-3 px-6 text-center align-middle 
+                            font-sans text-xs font-bold text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] 
+                            focus:shadow-none active:opacity-[0.85] active:shadow-none">
                         </div>
                     </div>
                 </form>
             <?php } ?>
         </div>
+    </div>
 </body>
 
 </html>

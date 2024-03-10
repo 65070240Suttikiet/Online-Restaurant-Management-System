@@ -265,7 +265,7 @@
           </a>
         </li>
         <li class="logout">
-          <a href="../login.php">
+          <a href="../index.php">
             <i class="fa-solid fa-right-from-bracket"></i>
             <span>Log Out</span>
           </a>

@@ -270,7 +270,7 @@ if (isset($_POST['sub'])) {
                 </div>
             </div>
         <?php } ?><br>
-        <div class="text-4xl font-extrabold dark:text-white">
+        <div class="text-4xl font-extrabold">
             <h1 style="font-family: myWebFont;" class="text-4xl">จองที่นั่ง</h1>
         </div>
         <div class="table">
