@@ -137,7 +137,9 @@ if (isset($_POST['sub'])) {
     }
 
     body {
-        height: 100%;
+        min-height: 100vh;
+        background-size: cover;
+        background-position: center;
         background: -moz-linear-gradient(top, #2B303A 50%, white 50%);
         background: -webkit-linear-gradient(top, #2B303A 50%, white 50%);
         background: linear-gradient(to bottom, #2B303A 50%, white 50%);
@@ -154,9 +156,7 @@ if (isset($_POST['sub'])) {
     }
 
     button {
-        /* padding: 10px; */
         font-size: 12px;
-        /* font-size: 20px; */
         height: 40px;
         border-radius: 9px;
     }
@@ -205,9 +205,7 @@ if (isset($_POST['sub'])) {
     }
 
     form {
-        /* background-color: #000000DA; */
         width: 450px;
-        /* height: 200px; */
         padding: 5px 20px;
         border-radius: 12px;
     }
@@ -233,7 +231,8 @@ if (isset($_POST['sub'])) {
     .chef {
         width: 800px;
     }
-    p{
+
+    p {
         font-family: "Noto Sans Thai", sans-serif;
     }
 </style>
@@ -255,7 +254,7 @@ if (isset($_POST['sub'])) {
         </nav>
         <ion-icon name="menu-outline" class="header__toggle" id="toggle-menu"></ion-icon>
     </header>
-    <div class="container mx-auto py-8 content">
+    <div class="container mx-auto py-16 content">
         <div class="text-center mb-3">
             <h2 class="text-4xl font-bold text-white" style="font-family: myWebFont;">ข้อมูลเชฟประจำห้อง</h2>
         </div>

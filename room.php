@@ -174,8 +174,7 @@ $result = mysqli_query($conn, $sql);
         margin-bottom: 20px;
     }
 
-    p,
-    input {
+    p,input {
         font-family: "Noto Sans Thai", sans-serif;
     }
 </style>
