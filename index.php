@@ -53,10 +53,10 @@ if (isset($_GET["mail"]) && isset($_GET["pass"])) {
     <title>Login</title>
     <link rel="stylesheet" href="Loginstyle.css">
     <style>
-        @import url(https://db.onlinewebfonts.com/c/c6c85088ca87416b9d0d27feecdd82f5?family=Iskry+Bold);
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap');
 
         * {
-            font-family: "Iskry Bold";
+            font-family: "Noto Sans Thai", sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
