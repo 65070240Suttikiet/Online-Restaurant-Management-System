@@ -143,25 +143,6 @@ body{
   color: #e60f0b;
 }
 
-/* detail income */
-.card-container{
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 10px;
-}
-
-.day-detail{
-  color: #4b0858;
-  padding-bottom: 10px;
-  font-size: 18px;
-}
-
-.amount{
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
 .tabular--wrapper{
     background: #fff;
     margin-top: 1rem;
@@ -230,25 +211,25 @@ tfoot td{
       <li>
           <a href="booking.php">
           <i class="fa-solid fa-envelope"></i>
-            <span>Booking</span>
+            <span>การจอง</span>
           </a>
         </li>
         <li class="active">
-          <a href="">
+          <a href="check_in.php">
           <i class="fa-solid fa-utensils"></i>
-            <span>Check In</span>
+            <span>เช็คอิน</span>
           </a>
         </li>
         <li>
           <a href="check_bill.php">
             <i class="fa-solid fa-wallet"></i>
-            <span>Check bill</span>
+            <span>ชำระเงิน</span>
           </a>
         </li>
         <li class="logout">
           <a href="../index.php">
             <i class="fa-solid fa-right-from-bracket"></i>
-            <span>Log Out</span>
+            <span>ออกจากระบบ</span>
           </a>
         </li>
       </div>
@@ -258,7 +239,7 @@ tfoot td{
   <div class="main--content">
     <div class="header--wrapper">
       <div class="header--title">
-        <h2>CHECK IN</h2>
+        <h2>หน้าการเช็คอิน</h2>
       </div>
       <div class="user--info">
         <div class="search--box">
@@ -283,7 +264,7 @@ tfoot td{
         }
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['booking_id'])) {
-          $search_booking_id = mysqli_real_escape_string($conn, $_POST['booking_id']);
+          $search_booking_id = $_POST['booking_id'];
 
           $sql = "SELECT booking_id, course_name, seat_id, room_id, booking_date, total_price, booking_status
             FROM booking 
@@ -309,14 +290,14 @@ tfoot td{
           echo '<table>
             <thead>
               <tr>
-                <th>Booking ID</th>
-                <th>Course Name</th>
-                <th>Seat ID</th>
-                <th>Room ID</th>
-                <th>Date</th>
-                <th>Price</th>
-                <th>Status</th>
-                <th>View</th>
+                <th>ID การจอง</th>
+                <th>ชื่อคอร์ส</th>
+                <th>เลขที่นั่ง</th>
+                <th>เลขห้อง</th>
+                <th>วันที่</th>
+                <th>ราคา</th>
+                <th>สถานะ</th>
+                <th>รายละเอียด</th>
               </tr>
             </thead>
             <tbody>';
@@ -331,7 +312,7 @@ tfoot td{
               '<td>' . $row['booking_date'] . '</td>' .
               '<td>' . $row['total_price'] . '</td>' .
               '<td>' . $row['booking_status'] . '</td>' .
-              '<td>' . '<a href="check_in_view.php?booking_id=' . $row['booking_id'] . '">View</a></td>' .
+              '<td>' . '<a href="check_in_view.php?booking_id=' . $row['booking_id'] . '">ดูรายละเอียด</a></td>' .
               '</tr>';
           }
 

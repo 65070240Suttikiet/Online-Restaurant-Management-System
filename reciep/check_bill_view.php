@@ -75,7 +75,7 @@
                 <div class="text-gray-700 font-semibold text-lg">Gangnam Omakase</div>
             </div>
             <div class="text-gray-700">
-                <div class="font-bold text-xl mb-2">Bill</div>
+                <div class="font-bold text-xl mb-2">ใบเสร็จ</div>
 
                 <div class="text-sm"><?php echo 'วันที่ : ' . $row['booking_date'] ?></div>
                 <div class="text-sm"><?php echo 'Booking ID : ' . $row['booking_id'] ?></div>
@@ -84,7 +84,7 @@
             </div>
         </div>
         <div class="border-b-2 border-gray-300 pb-8 mb-8">
-            <h2 class="text-2xl font-bold mb-4">Bill To:</h2>
+            <h2 class="text-2xl font-bold mb-4">ใบเสร็จถึง:</h2>
             <div class="text-gray-700 mb-2"><?php echo $row['first_name'] . ' ' . $row['last_name'] ?></div>
             <div class="text-gray-700 mb-2"><?php echo $row['phone'] ?></div>
             <div class="text-gray-700"><?php echo $row['email'] ?></div>
@@ -97,7 +97,7 @@
                     <th class="text-gray-700 font-bold uppercase py-2">ราคา</th>
 
                 </tr>
-            </thead>
+            </thead> 
             <tbody>
                 <tr>
                     <td class="py-4 text-gray-700"><?php echo $row['course_name'] ?></td>
