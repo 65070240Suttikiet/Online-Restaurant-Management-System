@@ -398,7 +398,7 @@ $username = $row['username'];
         <div class="text-course2">
             <div style="margin: 0px 100px 0px 100px;">
                 <i id="course-icon" class="fa-solid fa-khanda" style="color: #cab99f ;font-size: 100px; margin-bottom: 70px;"></i>
-                <h1>Samurai Sushi</h1>
+                <h1>Samurai Omakase</h1>
                 <br>
                 <p>คอร์สโอมากาเสะที่ออกแบบมาเพื่อนักชิมที่ต้องการสัมผัสประสบการณ์การทานอาหารญี่ปุ่นแบบสุดยอด คอร์สนี้ได้รับแรงบันดาลใจจากวิถีชีวิตของซามูไร เน้นความพิถีพิถันในการคัดสรรวัตถุดิบ เทคนิคการปรุงอาหารชั้นสูง และการนำเสนอที่ประณีต</p>
                 <br>

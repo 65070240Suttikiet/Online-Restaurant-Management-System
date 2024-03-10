@@ -301,7 +301,7 @@ if (isset($_GET["mail"]) && isset($_GET["pass"])) {
                     <label>อีเมล</label>
                 </div>
                 <div class="input-box">
-                    <span class="icon">
+                    <span clasfs="icon">
                         <ion-icon name="lock-closed-outline"></ion-icon>
                     </span>
                     <input type="password" name="pass" required>
