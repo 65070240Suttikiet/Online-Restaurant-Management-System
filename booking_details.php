@@ -82,7 +82,7 @@ $cus_id = $_SESSION["cus_id"];
             padding: 10px 0px 5px 0px;
             margin-left: 10px;
             color: black;
-            font-size: 0.9rem;
+            font-size: 0.7rem;
             font-weight: 500;
             border-radius: 5px;
             position: relative;
@@ -165,10 +165,10 @@ $cus_id = $_SESSION["cus_id"];
         <nav class="nav" id="nav-menu">
             <ion-icon name="close-outline" class="header__close" id="close-menu"></ion-icon>
             <ul class="nav__list">
-                <li class="nav__item"><a href="home.php" class="nav__link">Home</a></li>
-                <li class="nav__item"><a href="reservation.php" class="nav__link">Reservation</a></li>
-                <li class="nav__item"><a href="history.php" class="nav__link">History</a></li>
-                <li class="nav__item"><a href="logout.php" class="nav__link">Logout</a></li>
+                <li class="nav__item"><a href="home.php" class="nav__link">หน้าหลัก</a></li>
+                <li class="nav__item"><a href="reservation.php" class="nav__link">จองโต๊ะอาหาร</a></li>
+                <li class="nav__item"><a href="history.php" class="nav__link">ประวัติการจอง</a></li>
+                <li class="nav__item"><a href="logout.php" class="nav__link">ออกจากระบบ</a></li>
             </ul>
         </nav>
         <ion-icon name="menu-outline" class="header__toggle" id="toggle-menu"></ion-icon>
