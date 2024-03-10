@@ -193,7 +193,7 @@
             <nav class="nav" id="nav-menu">
                 <ion-icon name="close-outline" class="header__close" id="close-menu"></ion-icon>
                 <ul class="nav__list">
-                    <li class="nav__item"><a href="#" class="nav__link">Home</a></li>
+                    <li class="nav__item"><a href="home.php" class="nav__link">Home</a></li>
                     <!-- <li class="nav__item"><a href="#" class="nav__link">Reservation</a></li> -->
                     <!-- <li class="nav__item"><a href="history.php" class="nav__link">History</a></li> -->
                     <li class="nav__item"><a href="logout.php" class="nav__link">Logout</a></li>
