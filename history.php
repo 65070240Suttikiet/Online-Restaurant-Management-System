@@ -193,10 +193,10 @@
             <nav class="nav" id="nav-menu">
                 <ion-icon name="close-outline" class="header__close" id="close-menu"></ion-icon>
                 <ul class="nav__list">
-                    <li class="nav__item"><a href="home.php" class="nav__link">Home</a></li>
+                    <li class="nav__item"><a href="home.php" class="nav__link">หน้าหลัก</a></li>
                     <!-- <li class="nav__item"><a href="#" class="nav__link">Reservation</a></li> -->
                     <!-- <li class="nav__item"><a href="history.php" class="nav__link">History</a></li> -->
-                    <li class="nav__item"><a href="logout.php" class="nav__link">Logout</a></li>
+                    <li class="nav__item"><a href="logout.php" class="nav__link">ออกจากระบบ</a></li>
                 </ul>
             </nav>
             <ion-icon name="menu-outline" class="header__toggle" id="toggle-menu"></ion-icon>
@@ -213,14 +213,14 @@
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr style="background-color: #72f2fd">
-                            <th scope="col" class="px-6 py-3">Booking ID</th>
-                            <th scope="col" class="px-6 py-3">fistname</th>
-                            <th scope="col" class="px-6 py-3">lastname</th>
-                            <th scope="col" class="px-6 py-3">Date</th>
-                            <th scope="col" class="px-6 py-3">Price</th>
-                            <th scope="col" class="px-6 py-3">Status</th>
-                            <th scope="col" class="px-6 py-3">view</th>
+                        <tr style="background-color: #72f2fd; font-size: 15px;">
+                            <th scope="col" class="px-6 py-3">รหัสการจอง</th>
+                            <th scope="col" class="px-6 py-3">ชื่อจริง</th>
+                            <th scope="col" class="px-6 py-3">นามสกุล</th>
+                            <th scope="col" class="px-6 py-3">วันที่จอง</th>
+                            <th scope="col" class="px-6 py-3">ราคา</th>
+                            <th scope="col" class="px-6 py-3">สถานะ</th>
+                            <th scope="col" class="px-6 py-3">ดู</th>
                         </tr>
                     </thead>
                     <tbody>
