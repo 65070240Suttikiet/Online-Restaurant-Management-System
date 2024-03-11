@@ -181,11 +181,10 @@
            ON booking.cus_id = customers.cus_id
            AND course.course_id = booking.course_id
            WHERE booking_id = '$booking_id';";
-  $result = mysqli_query($conn, $sql);
 
-  if (mysqli_num_rows($result) > 0) {
-    $row = mysqli_fetch_assoc($result);
-  }
+  $ret = $db->query($sql);
+  $row = $ret->fetchArray(SQLITE3_ASSOC);
+
   ?>
   <div class="container">
 
@@ -274,10 +273,10 @@
   if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm_checkin'])) {
     $booking_id = $_POST['booking_id'];
     $update_sql = "UPDATE booking SET booking_status = 'check-in' WHERE booking_id = '$booking_id';";
-    $update_result = mysqli_query($conn, $update_sql);
+    $update_result = $db->exec($update_sql);
     echo '<script>alert("ยืนยันการเช็คอินสำเร็จ");window.location.replace("booking.php");</script>';
   }
-  mysqli_close($conn);
+  $db->close();
   ?>
 </body>
 
