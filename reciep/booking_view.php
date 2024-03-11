@@ -163,11 +163,14 @@
 
 <body>
   <?php
-  $conn = mysqli_connect("localhost", "root", "", "omakase");
-  if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+  class MyDB extends SQLite3
+  {
+    function __construct()
+    {
+      $this->open('omakase.db');
+    }
   }
-
+  $db = new MyDB();
   if (isset($_GET['booking_id'])) {
     $booking_id = $_GET['booking_id'];
   }
@@ -262,7 +265,7 @@
     <form method="post" action="">
       <input type="hidden" name="booking_id" value="<?php echo $row['booking_id']; ?>">
       <div class="but">
-        <button type="submit" name="confirm_checkin" >ยืนยันการเช็คอิน</button>
+        <button type="submit" name="confirm_checkin">ยืนยันการเช็คอิน</button>
       </div>
     </form>
   </div>

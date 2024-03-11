@@ -178,7 +178,7 @@ $cus_id = $_SESSION["cus_id"];
             <?php
             class MyDB extends SQLite3 {
                 function __construct() {
-                   $this->open('omakase.db');
+                   $this->open('db/omakase.db');
                 }
              }
             

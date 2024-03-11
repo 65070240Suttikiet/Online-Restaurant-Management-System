@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 class MyDB extends SQLite3 {
     function __construct() {
-       $this->open('omakase.db');
+       $this->open('db/omakase.db');
     }
  }
 
