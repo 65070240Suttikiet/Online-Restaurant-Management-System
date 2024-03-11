@@ -163,10 +163,17 @@
 
 <body>
   <?php
-  $conn = mysqli_connect("localhost", "root", "", "omakase");
-  if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+  class MyDB extends SQLite3
+  {
+    function __construct()
+    {
+      $this->open('../db/omakase.db');
+    }
   }
+
+  // 2. Open Database 
+
+  $db = new MyDB();
 
   if (isset($_GET['booking_id'])) {
     $booking_id = $_GET['booking_id'];
@@ -178,11 +185,10 @@
            ON booking.cus_id = customers.cus_id
            AND course.course_id = booking.course_id
            WHERE booking_id = '$booking_id';";
-  $result = mysqli_query($conn, $sql);
 
-  if (mysqli_num_rows($result) > 0) {
-    $row = mysqli_fetch_assoc($result);
-  }
+  $ret = $db->query($sql);
+  $row = $ret->fetchArray(SQLITE3_ASSOC);
+
   ?>
   <div class="container">
 
@@ -262,7 +268,7 @@
     <form method="post" action="">
       <input type="hidden" name="booking_id" value="<?php echo $row['booking_id']; ?>">
       <div class="but">
-        <button type="submit" name="confirm_checkin" >ยืนยันการเช็คอิน</button>
+        <button type="submit" name="confirm_checkin">ยืนยันการเช็คอิน</button>
       </div>
     </form>
   </div>
@@ -271,10 +277,10 @@
   if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm_checkin'])) {
     $booking_id = $_POST['booking_id'];
     $update_sql = "UPDATE booking SET booking_status = 'check-in' WHERE booking_id = '$booking_id';";
-    $update_result = mysqli_query($conn, $update_sql);
+    $update_result = $db->exec($update_sql);
     echo '<script>alert("ยืนยันการเช็คอินสำเร็จ");window.location.replace("booking.php");</script>';
   }
-  mysqli_close($conn);
+  $db->close();
   ?>
 </body>
 
