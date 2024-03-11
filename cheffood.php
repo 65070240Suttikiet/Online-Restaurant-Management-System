@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+session_start();
 date_default_timezone_set("Asia/Bangkok");
 class MyDB extends SQLite3
 {
@@ -11,8 +12,7 @@ class MyDB extends SQLite3
 }
 $db = new MyDB();
 
-$room = $_POST['room_id'];
-
+$room = $_SESSION['room_id'];
 
 $currentDate = date("Y-m-d");
 // echo $currentDate;
@@ -199,7 +199,7 @@ $bookdate_result = $db->query($bookdate_query);
     </header>
 
     <div style="padding: 20px 80px;">
-        <h2 style="padding: 10px 0px;">รายละเอียดเมนู</h2>
+        <h2 style="padding: 10px 0px;">รายละเอียดเมนู ห้อง <?php echo $room ?></h2>
         <p>วันที่ <?php echo $currentDate ?></p>
     </div>
     <div class="content">
@@ -336,41 +336,20 @@ $bookdate_result = $db->query($bookdate_query);
         })
 
         function waitingStatus(checkbox) {
-            // ตรวจสอบว่า checkbox ถูกเลือกหรือไม่
             if (checkbox.checked) {
-                // alert("sdffdsfsd");
-                var order_id = checkbox.value; // รับค่า order_id จาก checkbox
-                var xhttp = new XMLHttpRequest(); // สร้าง XMLHttpRequest object
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        console.log(this.responseText); // แสดงข้อมูลที่ได้จากการอัปเดต
-                    }
-                };
-                // สร้าง request เพื่อส่งข้อมูลไปยังไฟล์ PHP ที่ใช้ในการอัปเดต
-                xhttp.open("POST", "update_waiting_status.php", true);
-                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.send("order_id=" + order_id);
-                window.location.reload();
+                var order_id = checkbox.value; 
+                var url = "update_waiting_status.php?order_id=" + order_id;
+                window.location.href = url;
 
             }
 
         }
 
         function cookingStatus(checkbox) {
-            // ตรวจสอบว่า checkbox ถูกเลือกหรือไม่
             if (checkbox.checked) {
-                var order_id = checkbox.value; // รับค่า order_id จาก checkbox
-                var xhttp = new XMLHttpRequest(); // สร้าง XMLHttpRequest object
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        console.log(this.responseText); // แสดงข้อมูลที่ได้จากการอัปเดต
-                    }
-                };
-                // สร้าง request เพื่อส่งข้อมูลไปยังไฟล์ PHP ที่ใช้ในการอัปเดต
-                xhttp.open("POST", "update_cooking_status.php", true);
-                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.send("order_id=" + order_id); // ส่ง order_id ไปยังไฟล์ update_cooking_status.php
-                window.location.reload();
+                var order_id = checkbox.value;
+                var url = "update_cooking_status.php?order_id=" + order_id;
+                window.location.href = url;
             }
         }
     </script>

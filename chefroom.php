@@ -1,6 +1,8 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+session_start();
+
 class MyDB extends SQLite3
 {
     function __construct()
@@ -9,10 +11,19 @@ class MyDB extends SQLite3
     }
 }
 $db = new MyDB();
-$sql = "SELECT * FROM room WHERE room_id = 1 or room_id = 2 or room_id = 3";
-$result = $db->query($sql); 
-$sql1 = "SELECT * FROM room WHERE room_id = 4 or room_id = 5";
-$result1 = $db->query($sql1); 
+$sql = "SELECT * FROM room WHERE room_id IN (1, 2, 3)";
+$result = $db->query($sql);
+$sql1 = "SELECT * FROM room WHERE room_id IN (4, 5)";
+$result1 = $db->query($sql1);
+
+// Handle form submission
+if (isset($_POST['sub'])) {
+    $room_id = $_POST['sub'];
+    $_SESSION['room_id'] = $room_id;
+    // Redirect to cheffood.php
+    header('Location: cheffood.php');
+    exit;
+}
 ?>
 <html lang="en">
 
@@ -272,7 +283,7 @@ $result1 = $db->query($sql1);
             <ion-icon name="close-outline" class="header__close" id="close-menu"></ion-icon>
             <ul class="nav__list">
                 <li class="nav__item"><i style="color: aliceblue;" class="fa-solid fa-cookie-bite"></i></li>
-                 
+
                 <li class="nav__item"><a href="index.php" class="nav__link">ออกจากระบบ</a></li>
             </ul>
         </nav>
@@ -281,27 +292,27 @@ $result1 = $db->query($sql1);
     <div class="container">
         <h1 class="top">เชฟ</h1>
         <div class="grid-container">
-            <form action="cheffood.php" method="post">
+            <form action="" method="post">
                 <div class="row1">
                     <?php while ($row = $result->fetchArray(SQLITE3_ASSOC)) { ?>
                         <div class="grid-item1" id="grid1">
                             <div class="in_grid1">
                                 <h1><?php echo $row['room_name'] ?></h1>
                                 <img src="<?php echo $row['room_img'] ?>" alt="">
-                                <button type="submit" name="room_id" value="<?php echo $row['room_id'] ?>">เลือก</button>
+                                <button type="submit"  name="sub" value="<?php echo $row['room_id'] ?>">เลือก</button>
                             </div>
                         </div>
                     <?php } ?>
                 </div>
             </form>
-            <form action="cheffood.php" method="post">
+            <form action="" method="post">
                 <div class="row2">
                     <?php while ($row = $result1->fetchArray(SQLITE3_ASSOC)) { ?>
                         <div class="grid-item4" id="grid4">
                             <div class="in_grid4">
                                 <h1>Shokugeki</h1>
                                 <img src="<?php echo $row['room_img'] ?>" alt="">
-                                <button type="submit" name="room_id" value="<?php echo $row['room_id'] ?>">เลือก</button>
+                                <button type="submit" name="sub" value="<?php echo $row['room_id'] ?>">เลือก</button>
                             </div>
                         </div>
                     <?php } ?>

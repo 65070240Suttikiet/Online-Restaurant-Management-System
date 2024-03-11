@@ -1,42 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-<?php
-class MyDB extends SQLite3
-{
-    function __construct()
+    <?php
+    class MyDB extends SQLite3
     {
-        $this->open('db/omakase.db');
+        function __construct()
+        {
+            $this->open('db/omakase.db');
+        }
     }
-}
-$db = new MyDB();
+    $db = new MyDB();
+    if (isset($_GET['order_id'])) {
 
-// ตรวจสอบค่าที่ส่งมาจาก AJAX request
-if (isset($_POST['order_id'])) {
-    // รับค่า order_id
-    $order_id = $_POST['order_id'];
-    // echo $order_id;
-
-    // ทำการอัปเดตสถานะของคำสั่งในฐานข้อมูล
-    $update_query = "UPDATE orders SET order_status = 'cooking' WHERE order_id = $order_id";
-    if($db->exec($update_query)) {
-        echo "สถานะของคำสั่งถูกอัปเดตเป็น 'cooking' สำเร็จ";
-        
+        $order_id = $_GET['order_id'];
+        $update_query = "UPDATE orders SET order_status = 'cooking' WHERE order_id = $order_id";
+        if ($db->exec($update_query)) {
+            header("Location: cheffood.php");
+        } else {
+            echo "เกิดข้อผิดพลาดในการอัปเดตสถานะของคำสั่ง: " . $db->lastErrorMsg();
+        }
     } else {
-        echo "เกิดข้อผิดพลาดในการอัปเดตสถานะของคำสั่ง: " . $db->lastErrorMsg(); 
+        echo "ไม่มีการส่งค่า order_id";
     }
-} else {
-    echo "ไม่มีการส่งค่า order_id ผ่าน AJAX";
-}
 
-// ปิดการเชื่อมต่อกับฐานข้อมูล
-$db->close();
-?>
+    $db->close();
+    ?>
 
 </body>
+
 </html>

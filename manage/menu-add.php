@@ -1,15 +1,19 @@
 <?php
-class MyDB extends SQLite3 {
-  function __construct() {
+class MyDB extends SQLite3
+{
+  function __construct()
+  {
     $this->open('../db/omakase.db');
   }
 }
 
 // 2. Open Database 
 $db = new MyDB();
-if(!$db) {
+if (!$db) {
   echo $db->lastErrorMsg();
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -208,29 +212,26 @@ if(!$db) {
 
 
   <script>
-var sub = document.getElementById("sub");
-sub.addEventListener("click", (e) => {
-  e.preventDefault();
-  var menu_name = document.getElementById("menu-name").value;
-  if (confirm('ยืนยันการเพิ่มเมนูอาหาร?')) {
-    if (menu_name.length <= 3) {
-      alert("โปรดกรอกชื่อเมนูอย่างน้อย 4 ตัวอักษร");
-    } else {
+    var sub = document.getElementById("sub");
+    sub.addEventListener("click", (e) => {
+      e.preventDefault();
+      var menu_name = document.getElementById("menu-name").value;
       var course_id = document.getElementById("course_id").value;
       var menu_detail = document.getElementById("menu-detail").value;
       var menu_img = document.getElementById("menu-img").value;
-
-      if (menu_detail.length <= 6) {
-        alert("โปรดกรอกรายละเอียดเมนูอย่างน้อย 7 ตัวอักษร");
-      } else if (menu_img.length <= 8) {
-        alert("โปรดกรอกชื่อภาพเมนูอย่างน้อย 9 ตัวอักษร");
-      } else {
-        var url = "menu-add-process.php?course_id=" + course_id + "&menu_name=" + menu_name + "&menu_detail=" + menu_detail + "&menu_img=" + menu_img;
-        window.location.href = url;
+      if (confirm('ยืนยันการเพิ่มเมนูอาหาร?')) {
+        if (menu_name.length <= 3) {
+          alert("โปรดกรอกชื่อเมนูอย่างน้อย 4 ตัวอักษร");
+        } else if (menu_detail.length <= 6) {
+          alert("โปรดกรอกรายละเอียดเมนูอย่างน้อย 7 ตัวอักษร");
+        } else if (menu_img.length <= 8) {
+          alert("โปรดกรอกชื่อภาพเมนูอย่างน้อย 9 ตัวอักษร");
+        } else {
+          var url = "menu-add-process.php?course_id=" + course_id + "&menu_name=" + menu_name + "&menu_detail=" + menu_detail + "&menu_img=" + menu_img;
+          window.location.href = url;
+        }
       }
-    }
-  }
-});
+    });
 
 
     document.addEventListener("DOMContentLoaded", function() {
