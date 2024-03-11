@@ -9,214 +9,238 @@
   <link rel="stylecut icon" type="x-icon" href="https://cdn0.iconfinder.com/data/icons/business-office-and-people-in-flat/256/Businessman-2-512.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="check_in.css">
-<style>
-  @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap");
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap");
 
-* {
-  margin: 0;
-  padding: 0;
-  outline: none;
-  border: none;
-  box-sizing: border-box;
-  font-family: "Lato", sans-serif;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      outline: none;
+      border: none;
+      box-sizing: border-box;
+      font-family: "Lato", sans-serif;
+    }
 
-body{
-  display: flex;
-}
+    body {
+      display: flex;
+    }
 
-.sidebar{
-  position: sticky;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 145px;
-  height: 100vh;
-  padding: 0 1.7rem;  
-  color: #fff;
-  overflow: hidden;
-  transition: all 1s linear;
-  background: #001285;
-  
-}
-.sidebar:hover{
-  width: 270px;
-  transition: 0.5s;
-}
-.logo{
-  height: 80px; 
-  padding: 16px;
-}
-.menu{
-  height: 88%;
-  position: relative;
-  list-style: none;
-  padding: 0;
-}
-.menu li{
-  padding: 1rem;
-  margin: 8px 0;
-  border-radius: 8px;
-  transition: all 0.5s ease-in-out;
-}
-.menu li:hover, .active{
-  background: #e0e0e058;
-}
+    .sidebar {
+      position: sticky;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 145px;
+      height: 100vh;
+      padding: 0 1.7rem;
+      color: #fff;
+      overflow: hidden;
+      transition: all 1s linear;
+      background: #001285;
 
-.menu a{
-  color: #fff;
-  font-size: 14px;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
+    }
 
-.menu a span{
-  overflow: hidden;
-}
+    .sidebar:hover {
+      width: 270px;
+      transition: 0.5s;
+    }
 
-.menu a i{
-  font-size: 1.2rem;
-}
+    .logo {
+      height: 80px;
+      padding: 16px;
+    }
+
+    .menu {
+      height: 88%;
+      position: relative;
+      list-style: none;
+      padding: 0;
+    }
+
+    .menu li {
+      padding: 1rem;
+      margin: 8px 0;
+      border-radius: 8px;
+      transition: all 0.5s ease-in-out;
+    }
+
+    .menu li:hover,
+    .active {
+      background: #e0e0e058;
+    }
+
+    .menu a {
+      color: #fff;
+      font-size: 14px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .menu a span {
+      overflow: hidden;
+    }
+
+    .menu a i {
+      font-size: 1.2rem;
+    }
 
 
-/* main body section */
-.main--content{
-  position: relative;
-  background: #ebe9e9;
-  width: 100%;
-  padding: 1rem;
-}
+    /* main body section */
+    .main--content {
+      position: relative;
+      background: #ebe9e9;
+      width: 100%;
+      padding: 1rem;
+    }
 
-.header--wrapper img{
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
-  border-radius: 50%;
-}
+    .header--wrapper img {
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      border-radius: 50%;
+    }
 
-.header--wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 30px 2rem;
-  margin-bottom: 1rem;
-}
+    .header--wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 30px 2rem;
+      margin-bottom: 1rem;
+    }
 
-.header--title{
-  color: #4b0858;
-}
+    .header--title {
+      color: #4b0858;
+    }
 
-.user--info{
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
+    .user--info {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
 
-.search--box{
-  background-color: #ebe9e9;
-  border-radius: 15px;
-  color: #120a7f;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 4px 12px;
-}
+    .search--box {
+      background-color: #ebe9e9;
+      border-radius: 15px;
+      color: #120a7f;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 12px;
+    }
 
-.search--box input{
-  background: transparent;
-  padding: 10px;
-}
+    .search--box input {
+      background: transparent;
+      padding: 10px;
+    }
 
-.search--box i{
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: all 0.5s ease-out;
-}
+    .search--box i {
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.5s ease-out;
+    }
 
-.search--box i:hover{
-  transform: scale(1.1);
-  color: #e60f0b;
-}
+    .search--box i:hover {
+      transform: scale(1.1);
+      color: #e60f0b;
+    }
 
-.tabular--wrapper{
-    background: #fff;
-    margin-top: 1rem;
-    border-radius: 10px;
-    padding: 2rem;
-    
-}
-.table-container{
-    width: 100%;
-}
-table{
-    width: 100%;
-    border-collapse:collapse;
-}
-thead{
-    background: #001285;
-    color: #fff;
-}
-th{
-    padding: 15px;
-    text-align: left;
-    text-align: center;
-}
-tbody{
-    background: #f2f2f2;
-    text-align: center;
-}
-td{
-    padding: 15px;
-    font-size: 14px;
-    color: #333;
-}
-tr:nth-child(even){
-    background: #fff;
-}
-tfoot{
-    background: rgba(113, 99, 186, 255);
-    font-weight: bold;
-    color: #fff;
-}
-tfoot td{
-    padding: 15px;
-}
-.table-container a{
-  color: #333;
-  text-decoration-line: underline;
-}
-.table-container a:hover{
-  cursor: pointer;
-  color: rgb(36, 218, 0);
-  font-size: 15.5px;
-}
-</style>
+    .tabular--wrapper {
+      background: #fff;
+      margin-top: 1rem;
+      border-radius: 10px;
+      padding: 2rem;
+
+    }
+
+    .table-container {
+      width: 100%;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: #001285;
+      color: #fff;
+    }
+
+    th {
+      padding: 15px;
+      text-align: left;
+      text-align: center;
+    }
+
+    tbody {
+      background: #f2f2f2;
+      text-align: center;
+    }
+
+    td {
+      padding: 15px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    tr:nth-child(even) {
+      background: #fff;
+    }
+
+    tfoot {
+      background: rgba(113, 99, 186, 255);
+      font-weight: bold;
+      color: #fff;
+    }
+
+    tfoot td {
+      padding: 15px;
+    }
+
+    .table-container a {
+      color: #333;
+      text-decoration-line: underline;
+    }
+
+    .table-container a:hover {
+      cursor: pointer;
+      color: rgb(36, 218, 0);
+      font-size: 15.5px;
+    }
+  </style>
 </head>
 
 <body>
   <?php
-  $conn = mysqli_connect("localhost", "root", "", "omakase");
-  if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+  class MyDB extends SQLite3
+  {
+    function __construct()
+    {
+      $this->open('../db/omakase.db');
+    }
   }
+
+  // 2. Open Database 
+
+  $db = new MyDB();
   ?>
   <div class="sidebar">
     <div class="logo">
       <div class="menu">
-      <li>
+        <li>
           <a href="booking.php">
-          <i class="fa-solid fa-envelope"></i>
+            <i class="fa-solid fa-envelope"></i>
             <span>การจอง</span>
           </a>
         </li>
         <li class="active">
           <a href="check_in.php">
-          <i class="fa-solid fa-utensils"></i>
+            <i class="fa-solid fa-utensils"></i>
             <span>เช็คอิน</span>
           </a>
         </li>
@@ -256,12 +280,9 @@ tfoot td{
     <div class="tabular--wrapper">
 
       <div class="table-container">
-      <?php
-        $conn = mysqli_connect("localhost", "root", "", "omakase");
+        <?php
 
-        if (!$conn) {
-          die("การเชื่อมต่อล้มเหลว: " . mysqli_connect_error());
-        }
+
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['booking_id'])) {
           $search_booking_id = $_POST['booking_id'];
@@ -274,6 +295,10 @@ tfoot td{
             AND course.course_id = booking.course_id
             WHERE booking_status = 'check-in'
             AND booking.booking_id = '$search_booking_id';";
+          $sqlcount = "SELECT COUNT(*) AS count 
+          FROM booking 
+          WHERE booking_status = 'check-in'
+          AND booking.booking_id = '$search_booking_id';";
         } else {
           $sql = "SELECT booking_id, course_name, seat_id, room_id, booking_date, total_price, booking_status
             FROM booking 
@@ -282,11 +307,17 @@ tfoot td{
             ON booking.cus_id = customers.cus_id
             AND course.course_id = booking.course_id
             WHERE booking_status = 'check-in';";
+          $sqlcount = "SELECT COUNT(*) AS count 
+          FROM booking 
+          WHERE booking_status = 'booking';";
         }
 
-        $result = mysqli_query($conn, $sql);
+        $ret = $db->query($sql);
+        $retcount =  $db->query($sqlcount);
 
-        if (mysqli_num_rows($result) > 0) {
+        $rowcount = $retcount->fetchArray(SQLITE3_ASSOC);
+
+        if ($rowcount['count'] > 0) {
           echo '<table>
             <thead>
               <tr>
@@ -302,7 +333,7 @@ tfoot td{
             </thead>
             <tbody>';
 
-          while ($row = mysqli_fetch_assoc($result)) {
+          while ($row = $ret->fetchArray(SQLITE3_ASSOC)) {
             $id = $row['booking_id'];
             echo '<tr>' .
               '<td>' . $row['booking_id'] . '</td>' .
@@ -321,10 +352,9 @@ tfoot td{
           echo "ไม่พบข้อมูล Booking_id";
         }
 
-        mysqli_close($conn);
+        $db->close();
         ?>
-          </tbody>
-        </table>
+
       </div>
 
     </div>
