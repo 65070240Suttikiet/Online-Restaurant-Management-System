@@ -1,9 +1,17 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "omakase");
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
+  class MyDB extends SQLite3 {
+    function __construct() {
+      $this->open('../db/omakase.db');
+    }
+  }
+
+  // 2. Open Database 
+  $db = new MyDB();
+  if(!$db) {
+    echo $db->lastErrorMsg();
+  }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -220,12 +228,14 @@ if (!$conn) {
       </div>
     </div>
   </div>
-
+  
   <?php
-  $sql = "SELECT * FROM customers;";
-  $result = mysqli_query($conn, $sql);
-  $num_rows = mysqli_num_rows($result);
-  ?>
+    $sql ="SELECT COUNT(*) AS count FROM customers";
+    $result = $db->query($sql);
+    $row = $result->fetchArray(SQLITE3_ASSOC);
+    $numRows = $row['count'];
+?>
+
 
   <div class="main--content">
     <div class="header--wrapper">
@@ -233,7 +243,7 @@ if (!$conn) {
         <h2 style="font-size: 21px;">รายละเอียดลูกค้า</h2>
         <div style="margin-top: 10px; text-align: center; border-radius: 10px; padding: 5px 1px; background-color: #69CD67; color:white">
 
-          <p style="font-size: 12px;">ลูกค้ามีทั้งหมด : <?php echo $num_rows ?> </p>
+          <p style="font-size: 12px;">ลูกค้ามีทั้งหมด : <?php echo $numRows ?> </p>
         </div>
       </div>
       <div class="user--info">
@@ -247,22 +257,23 @@ if (!$conn) {
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr style="background-color: #a8ffbf">
-              <th scope="col" class="px-6 py-3">#No</th>
-              <th scope="col" class="px-6 py-3">Customer ID</th>
-              <th scope="col" class="px-6 py-3">first name</th>
-              <th scope="col" class="px-6 py-3">last name</th>
-              <th scope="col" class="px-6 py-3">phone</th>
-              <th scope="col" class="px-6 py-3">email</th>
-              <th scope="col" class="px-6 py-3">Username</th>
+              <th scope="col" class="px-6 py-3">ลำดับที่</th>
+              <th scope="col" class="px-6 py-3">รหัสลูกค้า</th>
+              <th scope="col" class="px-6 py-3">ชื่อจริง</th>
+              <th scope="col" class="px-6 py-3">นามสกุล</th>
+              <th scope="col" class="px-6 py-3">เบอร์โทรศัพท์</th>
+              <th scope="col" class="px-6 py-3">อีเมลล์</th>
+              <th scope="col" class="px-6 py-3">ชื่อผู้ใช้</th>
             </tr>
           </thead>
           <tbody>
 
             <?php
-            if (mysqli_num_rows($result) > 0) {
-              // output data of each row
-              $count = 1;
-              while ($row = mysqli_fetch_assoc($result)) {
+              $sql ="SELECT * FROM customers";
+              $ret = $db->query($sql); 
+              $count = 0;
+              while($row = $ret->fetchArray(SQLITE3_ASSOC) ) {
+                  $count = $count +1;
             ?>
 
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -282,9 +293,7 @@ if (!$conn) {
                 </tr>
 
             <?php
-                $count = $count + 1;
               }
-            }
             ?>
 
           </tbody>
@@ -299,5 +308,5 @@ if (!$conn) {
 </html>
 
 <?php
-mysqli_close($conn);
+  $db->close();
 ?>

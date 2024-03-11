@@ -167,14 +167,10 @@
   {
     function __construct()
     {
-      $this->open('../db/omakase.db');
+      $this->open('omakase.db');
     }
   }
-
-  // 2. Open Database 
-
   $db = new MyDB();
-
   if (isset($_GET['booking_id'])) {
     $booking_id = $_GET['booking_id'];
   }

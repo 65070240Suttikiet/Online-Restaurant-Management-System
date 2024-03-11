@@ -1,15 +1,15 @@
 <?php
-$servername = "localhost";
-$username = "root"; //ตามที่กำหนดให้
-$password = ""; //ตามที่กำหนดให้
-$dbname = "omakase";    //ตามที่กำหนดให้
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
+class MyDB extends SQLite3 {
+  function __construct() {
+    $this->open('../db/omakase.db');
+  }
 }
 
+// 2. Open Database 
+$db = new MyDB();
+if(!$db) {
+  echo $db->lastErrorMsg();
+}
 ?>
 
 <!DOCTYPE html>
@@ -186,8 +186,8 @@ if (!$conn) {
           $choose = "SELECT *
             FROM course
             WHERE course_id = '{$course_id}';";
-          $result = mysqli_query($conn, $choose);
-          $row = mysqli_fetch_assoc($result);
+          $result = $db->query($choose);
+          $row =  $result->fetchArray(SQLITE3_ASSOC);
           ?>
           <input name="course-id" id="course_id" value=<?php echo $course_id ?> class="hidden" />
           <input name="course-name" readonly id="course_name" value=<?php echo $row['course_name'] ?> style="margin-bottom: 20px; padding: 10px;" class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
@@ -250,6 +250,3 @@ sub.addEventListener("click", (e) => {
 </body>
 
 </html>
-<?php
-mysqli_close($conn);
-?>
