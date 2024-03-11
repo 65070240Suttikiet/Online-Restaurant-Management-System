@@ -1,11 +1,18 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-$conn = mysqli_connect("localhost", "root", "", "omakase");
+class MyDB extends SQLite3
+{
+    function __construct()
+    {
+        $this->open('db/omakase.db');
+    }
+}
+$db = new MyDB();
 $sql = "SELECT * FROM room WHERE room_id = 1 or room_id = 2 or room_id = 3";
-$result = mysqli_query($conn, $sql);
+$result = $db->query($sql); 
 $sql1 = "SELECT * FROM room WHERE room_id = 4 or room_id = 5";
-$result1 = mysqli_query($conn, $sql1);
+$result1 = $db->query($sql1); 
 ?>
 <html lang="en">
 
@@ -276,7 +283,7 @@ $result1 = mysqli_query($conn, $sql1);
         <div class="grid-container">
             <form action="cheffood.php" method="post">
                 <div class="row1">
-                    <?php while ($row = $result->fetch_assoc()) { ?>
+                    <?php while ($row = $result->fetchArray(SQLITE3_ASSOC)) { ?>
                         <div class="grid-item1" id="grid1">
                             <div class="in_grid1">
                                 <h1><?php echo $row['room_name'] ?></h1>
@@ -289,7 +296,7 @@ $result1 = mysqli_query($conn, $sql1);
             </form>
             <form action="cheffood.php" method="post">
                 <div class="row2">
-                    <?php while ($row = $result1->fetch_assoc()) { ?>
+                    <?php while ($row = $result1->fetchArray(SQLITE3_ASSOC)) { ?>
                         <div class="grid-item4" id="grid4">
                             <div class="in_grid4">
                                 <h1>Shokugeki</h1>

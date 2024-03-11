@@ -2,23 +2,31 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 date_default_timezone_set("Asia/Bangkok");
-$conn = mysqli_connect("localhost", "root", "", "omakase");
+class MyDB extends SQLite3
+{
+    function __construct()
+    {
+        $this->open('db/omakase.db');
+    }
+}
+$db = new MyDB();
 
 $room = $_POST['room_id'];
-// echo $room;
+
 
 $currentDate = date("Y-m-d");
+// echo $currentDate;
 
 // ค้นหา booking_id ที่มี booking_date เท่ากับวันปัจจุบัน
 $bookdate_query = "SELECT booking_id FROM booking WHERE booking_date = '$currentDate'";
-$bookdate_result = mysqli_query($conn, $bookdate_query);
+$bookdate_result = $db->query($bookdate_query);
 // ถ้ามีการค้นพบ booking_id ในวันนี้
-if (mysqli_num_rows($bookdate_result) > 0) {
+
     // สร้างอาร์เรย์เก็บ booking_id
     $booking_ids = [];
 
     // เก็บ booking_id ลงในอาร์เรย์
-    while ($row = mysqli_fetch_assoc($bookdate_result)) {
+    while ($row = $bookdate_result->fetchArray(SQLITE3_ASSOC)) {
         $booking_ids[] = $row['booking_id'];
     }
 
@@ -34,8 +42,8 @@ if (mysqli_num_rows($bookdate_result) > 0) {
                WHERE booking.booking_id IN ($booking_ids_str) 
                AND orders.order_status = 'wait'
                AND booking.room_id = $room";
-    $wait_result = mysqli_query($conn, $wait_query);
-}
+    $wait_result = $db->query($wait_query);
+
 ?>
 
 <!DOCTYPE html>
@@ -199,8 +207,8 @@ if (mysqli_num_rows($bookdate_result) > 0) {
         <div class="wait" style="background-color: rgba(247, 200, 196, 0.26);">
             <p style="padding: 10px 20px;">เมนูที่ต้องทำ</p>
             <?php
-            while ($row = mysqli_fetch_assoc($wait_result)) { ?>
-                <div class="menu-card" style="background-color: rgba(249, 69, 60, 0.196); font-size: 12px">
+            while ($row = $wait_result->fetchArray(SQLITE3_ASSOC)) { ?>
+                <div class="menu-card" style="background-color: rgba(249, 69, 60, 0.7); font-size: 12px">
                     <form action="" style="display: flex; align-items: center; gap: 10px; width: 350px;" method="post">
                         <input type="checkbox" name="order_id" value="<?php echo $row['order_id'] ?>" onchange="waitingStatus(this)">
                         <label style="width: 110px;  for=""><?php echo $row['menu_name'] ?></label>
@@ -213,18 +221,18 @@ if (mysqli_num_rows($bookdate_result) > 0) {
         </div>
 
         <?php
+        
         $currentDate = date("Y-m-d");
 
         // ค้นหา booking_id ที่มี booking_date เท่ากับวันปัจจุบัน
         $bookdate_query = "SELECT booking_id FROM booking WHERE booking_date = '$currentDate'";
-        $bookdate_result = mysqli_query($conn, $bookdate_query);
+        $bookdate_result = $db->query($bookdate_query);
 
-        if (mysqli_num_rows($bookdate_result) > 0) {
             // สร้างอาร์เรย์เก็บ booking_id
             $booking_ids = [];
 
             // เก็บ booking_id ลงในอาร์เรย์
-            while ($row = mysqli_fetch_assoc($bookdate_result)) {
+            while ($row = $bookdate_result->fetchArray(SQLITE3_ASSOC)) {
                 $booking_ids[] = $row['booking_id'];
             }
 
@@ -241,15 +249,15 @@ if (mysqli_num_rows($bookdate_result) > 0) {
                            AND orders.order_status = 'cooking'
                            AND booking.room_id = $room";
 
-            $cooking_result = mysqli_query($conn, $cooking_query);
-        }
+            $cooking_result = $db->query($cooking_query); 
+
         ?>
 
 
         <div class="cooking" style="background-color: rgba(247, 244, 196, 0.266);">
             <p style="padding: 10px 20px;">เมนูที่กำลังทำอยู่</p>
             <?php
-            while ($row = mysqli_fetch_assoc($cooking_result)) { ?>
+            while ($row = $cooking_result->fetchArray(SQLITE3_ASSOC)) { ?>
 
                 <div class="menu-card" style="background-color: #FFD608; font-size: 12px;">
                     <form action="" style="display: flex; align-items: center; gap: 10px; ">
@@ -258,7 +266,7 @@ if (mysqli_num_rows($bookdate_result) > 0) {
                     <p style=" width: 90px;"> <?php echo $row['course_name'] ?></p>
                             <p>ที่นั่ง : <?php echo $row['seat_id'] ?></p>
                     </form>
-                    <p style="background-color: rgb(244, 255, 86); padding: 3px; font-size: 11px; border-radius: 10px;"><?php echo $row['order_status'] ?></p>
+                    <p style="background-color: #F3C6E9; padding: 4px; font-size: 11px; border-radius: 10px;"><?php echo $row['order_status'] ?></p>
                 </div>
 
             <?php } ?>
@@ -269,14 +277,13 @@ if (mysqli_num_rows($bookdate_result) > 0) {
 
         // ค้นหา booking_id ที่มี booking_date เท่ากับวันปัจจุบัน
         $bookdate_query = "SELECT booking_id FROM booking WHERE booking_date = '$currentDate'";
-        $bookdate_result = mysqli_query($conn, $bookdate_query);
+        $bookdate_result = $db->query($bookdate_query);
 
-        if (mysqli_num_rows($bookdate_result) > 0) {
             // สร้างอาร์เรย์เก็บ booking_id
             $booking_ids = [];
 
             // เก็บ booking_id ลงในอาร์เรย์
-            while ($row = mysqli_fetch_assoc($bookdate_result)) {
+            while ($row = $bookdate_result->fetchArray(SQLITE3_ASSOC)) {
                 $booking_ids[] = $row['booking_id'];
             }
 
@@ -293,17 +300,16 @@ if (mysqli_num_rows($bookdate_result) > 0) {
                            AND orders.order_status = 'cooked'
                            AND booking.room_id = $room";
 
-            $cooked_result = mysqli_query($conn, $cooked_query);
-        }
+            $cooked_result = $db->query($cooked_query); 
         ?>
 
-        <div class="finish" style="background-color: white;">
+        <div class="finish" style="background-color: #D4F6CB31;">
             <p style="padding: 10px 20px;">เมนูที่ทำเสร็จเเล้ว</p>
 
             <?php
-            while ($row = mysqli_fetch_assoc($cooked_result)) { ?>
+            while ($row = $cooked_result->fetchArray(SQLITE3_ASSOC)) { ?>
 
-                <div class="menu-card" style=" font-size: 12px;">
+                <div class="menu-card" style=" font-size: 12px; background-color: #A6FF8EB5;">
                     <form action="" style="display: flex; align-items: center; gap: 10px; justify-content: space-between; width: 90%">
                         <label style="width: 130px;" for=""><?php echo $row['menu_name'] ?></label>
                         <p style="width: 120px;"> <?php echo $row['course_name'] ?></p>
@@ -332,6 +338,7 @@ if (mysqli_num_rows($bookdate_result) > 0) {
         function waitingStatus(checkbox) {
             // ตรวจสอบว่า checkbox ถูกเลือกหรือไม่
             if (checkbox.checked) {
+                // alert("sdffdsfsd");
                 var order_id = checkbox.value; // รับค่า order_id จาก checkbox
                 var xhttp = new XMLHttpRequest(); // สร้าง XMLHttpRequest object
                 xhttp.onreadystatechange = function() {
