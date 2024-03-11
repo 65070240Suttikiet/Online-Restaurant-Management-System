@@ -192,7 +192,7 @@ $bookdate_result = $db->query($bookdate_query);
                 <li class="nav__item">
                     <a href="chefroom.php" class="nav__link">Room</a>
                 </li>
-                <li class="nav__item"><a href="login.php" class="nav__link">Logout</a></li>
+                <li class="nav__item"><a href="index.php" class="nav__link">Logout</a></li>
             </ul>
         </nav>
         <ion-icon name="menu-outline" class="header__toggle" id="toggle-menu"></ion-icon>

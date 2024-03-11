@@ -273,7 +273,7 @@ $result1 = $db->query($sql1);
             <ul class="nav__list">
                 <li class="nav__item"><i style="color: aliceblue;" class="fa-solid fa-cookie-bite"></i></li>
                  
-                <li class="nav__item"><a href="login.php" class="nav__link">ออกจากระบบ</a></li>
+                <li class="nav__item"><a href="index.php" class="nav__link">ออกจากระบบ</a></li>
             </ul>
         </nav>
         <ion-icon name="menu-outline" class="header__toggle" id="toggle-menu"></ion-icon>
