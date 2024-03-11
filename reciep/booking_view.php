@@ -167,7 +167,7 @@
   {
     function __construct()
     {
-      $this->open('omakase.db');
+      $this->open('../db/omakase.db');
     }
   }
   $db = new MyDB();
