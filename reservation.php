@@ -1,18 +1,27 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+class MyDB extends SQLite3 {
+    function __construct() {
+       $this->open('omakase.db');
+    }
+ }
+
+ // 2. Open Database 
+ $db = new MyDB();
 date_default_timezone_set("Asia/Bangkok");
 session_start();
 $cus_id = $_SESSION["cus_id"];
 if (isset($_POST['sub'])) {
-    $conn = mysqli_connect("localhost", "root", "", "omakase");
     $date = $_POST['date'];
     $booking_datetime = date("Y-m-d H:i:s");
     // echo $booking_datetime;
     $_SESSION['booking_datetime'] = $booking_datetime;
     $sql = "INSERT INTO booking(cus_id,booking_date,timestamp) VALUES('$cus_id','$date','$booking_datetime')";
-    $result = mysqli_query($conn, $sql);
+    $result = $db->query($sql);
+    // echo $sql;
     header("Location: room.php?date=$date");
+    
     exit;
 }
 ?>

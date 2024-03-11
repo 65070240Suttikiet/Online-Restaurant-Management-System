@@ -176,11 +176,14 @@ $cus_id = $_SESSION["cus_id"];
     <div class="content">
         <div class="detail">
             <?php
-            $conn = mysqli_connect("localhost", "root", "", "omakase");
-            if (!$conn) {
-                die("Connection failed: " . mysqli_connect_error());
-            }
-
+            class MyDB extends SQLite3 {
+                function __construct() {
+                   $this->open('omakase.db');
+                }
+             }
+            
+             // 2. Open Database 
+             $db = new MyDB();
             if (isset($_GET['booking_id'])) {
                 $booking_id = $_GET['booking_id'];
 
@@ -191,10 +194,10 @@ $cus_id = $_SESSION["cus_id"];
                         JOIN room ON booking.room_id = room.room_id
                         WHERE booking.booking_id = '$booking_id';";
 
-                $result = mysqli_query($conn, $sql);
+                $result = $db->query($sql);
 
-                if (mysqli_num_rows($result) > 0) {
-                    $row = mysqli_fetch_assoc($result);
+              
+                    $row = $result->fetchArray(SQLITE3_ASSOC);
 
                     // Check if booking status is 'checked' to allow cancellation
             ?>
@@ -233,7 +236,7 @@ $cus_id = $_SESSION["cus_id"];
             <?php
                     }
                 }
-            }
+            
 
             ?>
 

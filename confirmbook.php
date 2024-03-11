@@ -1,7 +1,14 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-$conn = mysqli_connect("localhost", "root", "", "omakase");
+class MyDB extends SQLite3 {
+    function __construct() {
+       $this->open('omakase.db');
+    }
+ }
+
+ // 2. Open Database 
+ $db = new MyDB();
 // session_start();
 // $cus_id = $_SESSION["cus_id"];
 $bookingid = $_GET['booking_id'];
@@ -11,24 +18,24 @@ JOIN customers
 ON booking.course_id = course.course_id
 AND customers.cus_id = booking.cus_id
 WHERE booking.booking_id = '$bookingid'";
-$result = mysqli_query($conn, $sql);
+$result = $db->query($sql);
 $seat = "SELECT seat_id from booking where booking_id = '$bookingid'";
-$resultseat = mysqli_query($conn, $seat);
-$seatid = mysqli_fetch_array($resultseat);
+$resultseat = $db->query($seat);
+$seatid = $resultseat->fetchArray(SQLITE3_ASSOC);
 $seat = $seatid["seat_id"];
 
 if (isset($_POST["sub"])) {
     $sql1 = "UPDATE booking SET booking_status = 'booking' WHERE booking_id = '$bookingid'";
     $sql2 = "UPDATE seat SET seat_status = 'uv' WHERE seat_id = '$seat'";
-    $result1 = mysqli_query($conn, $sql1);
-    $result2 = mysqli_query($conn, $sql2);
+    $result1 = $db->query($sql1);
+    $result2 = $db->query($sql2);
     echo '<script>alert("ยืนยันการจองสำเร็จ");';
     echo 'window.location.href = "home.php";';
     echo '</script>';
 }
 if (isset($_POST["cancel"])) {
-    $sql2 = "DELETE FROM booking WHERE booking_id = '$bookingid'";
-    $result2 = mysqli_query($conn, $sql2);
+    $sql3 = "DELETE FROM booking WHERE booking_id = '$bookingid'";
+    $result3 = $db->query($sql3);
     echo '<script>alert("ยกเลิกการจองสำเร็จ");';
     echo 'window.location.href = "home.php";';
     echo '</script>';
@@ -232,7 +239,7 @@ if (isset($_POST["cancel"])) {
             <div class="max-w-md bg-white shadow-lg hover:shadow-xl transition duration-300 p-10" style="background-color: #D6D6D676;  border-radius: 0px 15px 15px 0px; width: 300px; height: 500px">
                 <h5 class="mb-4 text-2xl font-bold text-left text-gray-900">Booking Confirmation</h5>
                 <ul class="text-lg text-gray-700">
-                    <?php while ($row = $result->fetch_assoc()) { ?>
+                    <?php while ($row = $result->fetchArray(SQLITE3_ASSOC)) { ?>
                         <p><strong style="display: inline-block; font-size: 16px; ">Booking ID </strong><span style="float: right;"><?php echo $row['booking_id'] ?></span></span></p>
                         <p><strong style="display: inline-block; font-size: 16px;">ชื่อ</strong> <span style="float: right;"> <?php echo $row['first_name'] . " " . $row['last_name'] ?></span></p>
                         <p><strong style="display: inline-block; font-size: 16px;">คอร์ส</strong> <span style="float: right;"> <?php echo $row['course_name'] ?></span></p>

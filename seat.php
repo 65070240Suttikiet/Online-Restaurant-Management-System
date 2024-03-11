@@ -1,22 +1,29 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-$con = mysqli_connect("localhost", "root", "", "omakase");
+class MyDB extends SQLite3 {
+    function __construct() {
+       $this->open('omakase.db');
+    }
+ }
+
+ // 2. Open Database 
+ $db = new MyDB();
 $bookingid = $_GET['booking_id'];
 $sql = "SELECT room_id from booking WHERE booking_id = '$bookingid'";
-$result = mysqli_query($con, $sql);
-$row = mysqli_fetch_assoc($result);
+$result1 = $db->query($sql);
+$row = $result1->fetchArray(SQLITE3_ASSOC);
 $room_id = $row['room_id'];
 $seatsql = "SELECT * FROM seat WHERE room_id = '$room_id'";
-$seatresult = mysqli_query($con, $seatsql);
+$seatresult = $db->query($seatsql);
 $chefsql = "SELECT * FROM chef WHERE room_id = '$room_id'";
-$chefresult = mysqli_query($con, $chefsql);
+$chefresult = $db->query($chefsql);
 if (isset($_POST['sub'])) {
     $seat = $_POST['seat'];
     $sql = "UPDATE booking
     SET seat_id = '$seat'
     WHERE booking_id = '$bookingid'";
-    $result = mysqli_query($con, $sql);
+    $result = $db->query($sql);
     header("Location: course.php?booking_id=$bookingid");
     exit(); // echo $sql;
 }
@@ -258,8 +265,9 @@ if (isset($_POST['sub'])) {
         <div class="text-center mb-3">
             <h2 class="text-4xl font-bold text-white" style="font-family: myWebFont;">ข้อมูลเชฟประจำห้อง</h2>
         </div>
-        <?php while ($row = $chefresult->fetch_assoc()) { ?>
-            <div class="chef bg-white rounded-xl shadow-md overflow-hidden grid grid-cols-2 gap-4 p-8 shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 cursor-pointer">
+        <?php while ($row = $chefresult->fetchArray(SQLITE3_ASSOC)) { ?>
+            <div class="chef bg-white rounded-xl shadow-md overflow-hidden grid grid-cols-2 gap-4 p-8 shadow hover:bg-gray-100 
+            dark:bg-gray-800 cursor-pointer">
                 <div class="img">
                     <img src="<?php echo $row['chef_img'] ?>" class="h-72 w-full object-cover rounded-xl" alt="">
                 </div>
@@ -273,11 +281,11 @@ if (isset($_POST['sub'])) {
             <h1 style="font-family: myWebFont;" class="text-4xl">จองที่นั่ง</h1>
         </div>
         <div class="table">
-            <h2>Table</h2>
+            <h2>โต๊ะ</h2>
         </div>
         <form action="" method="post" class="form">
             <div class="grid grid-cols-5 gap-4 seat">
-                <?php while ($row = $seatresult->fetch_assoc()) { ?>
+                <?php while ($row = $seatresult->fetchArray(SQLITE3_ASSOC)) { ?>
                     <div class="flex items-center justify-center">
                         <?php if ($row['seat_status'] == 'uv') { ?>
                             <input type="radio" name="seat" value="<?php echo $row['seat_id']; ?>" id="<?php echo $row['seat_id']; ?>" class="<?php echo $row['seat_status'] ?>" disabled />
@@ -292,7 +300,7 @@ if (isset($_POST['sub'])) {
                 <p id="seatt" style="font-size:16px; text-align: left;">เลขที่นั่ง</p>
             </div>
             <div class="mt-8 flex justify-center" style="gap: 20px;">
-                <a href="javascript:history.go(-1);" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-400">Back</a>
+                <a href="javascript:history.go(-1);" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-400">ย้อนกลับ</a>
                 <button type="reset" class="bg-gray-300 text-gray-700 py-2 px-4 rounded ml-2 hover:bg-gray-400">ล้าง</button>
                 <button type="submit" name="sub" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">ยืนยัน</button>
             </div>
@@ -310,11 +318,10 @@ if (isset($_POST['sub'])) {
             });
         });
 
-        // เพิ่มการดักจับเหตุการณ์เมื่อคลิกที่ปุ่ม Reset
         const resetButton = document.querySelector('button[type="reset"]');
         resetButton.addEventListener('click', () => {
             const seatText = document.getElementById('seatt');
-            seatText.textContent = 'เลขที่นั่ง'; // ลบข้อความออก
+            seatText.textContent = 'เลขที่นั่ง';
         });
     });
 </script>

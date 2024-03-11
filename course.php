@@ -1,23 +1,30 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-$conn = mysqli_connect("localhost", "root", "", "omakase");
+class MyDB extends SQLite3 {
+    function __construct() {
+       $this->open('omakase.db');
+    }
+ }
+
+ // 2. Open Database 
+ $db = new MyDB();
 if (isset($_POST['sub'])) {
     $course_id = $_POST['course_id'];
     $bookingid = $_GET['booking_id'];
     $course = "SELECT price FROM course";
-    $resultprice = mysqli_query($conn, $course);
-    $row = mysqli_fetch_assoc($resultprice);
+    $resultprice = $db->query($course);
+    $row = $resultprice->fetchArray(SQLITE3_ASSOC);
     $price = $row["price"];
     $sql = "UPDATE booking
     SET course_id = '$course_id',total_price = '$price'
     WHERE booking_id = '$bookingid'";
-    $result = mysqli_query($conn, $sql);
+    $result = $db->query($sql);
     header("Location: menu.php?booking_id=$bookingid");
     exit();
 }
 $sql = "SELECT * FROM course";
-$result = mysqli_query($conn, $sql);
+$result = $db->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -200,7 +207,7 @@ $result = mysqli_query($conn, $sql);
         <hr width="50%" />
         <div class="content">
             <?php
-            while ($row = mysqli_fetch_assoc($result)) {
+            while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
             ?>
                 <form action="" method="post">
                     <div class="relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md" style=" color:black;">

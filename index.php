@@ -1,7 +1,12 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-$con = mysqli_connect("localhost", "root", "", "omakase");
+class MyDB extends SQLite3 {
+    function __construct() {
+       $this->open('omakase.db');
+    }
+ }
+
+ // 2. Open Database 
+ $db = new MyDB();
 
 session_start();
 
@@ -25,8 +30,8 @@ if (isset($_GET["mail"]) && isset($_GET["pass"])) {
     }
 
     $sql = "SELECT * FROM customers WHERE email = '$email'";
-    $result = mysqli_query($con, $sql);
-    $row = mysqli_fetch_array($result);
+    $result = $db->query($sql);
+    $row = $result->fetchArray(SQLITE3_ASSOC);
     
     if (!$row) {
         $message = "กรุณาลงทะเบียน";

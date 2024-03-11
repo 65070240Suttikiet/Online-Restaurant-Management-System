@@ -1,7 +1,14 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-$conn = mysqli_connect("localhost", "root", "", "omakase");
+class MyDB extends SQLite3 {
+    function __construct() {
+       $this->open('omakase.db');
+    }
+ }
+
+ // 2. Open Database 
+ $db = new MyDB();
 session_start();
 $cus_id = $_SESSION["cus_id"];
 $time = $_SESSION['booking_datetime'];
@@ -9,19 +16,20 @@ if (isset($_POST['sub'])) {
     $roomid = $_POST['room_id'];
     $date = $_GET['date'];
     $sqlbook  = "SELECT booking_id FROM booking WHERE timestamp = '$time'";
-    $bookid = mysqli_query($conn, $sqlbook);
-    $row = mysqli_fetch_assoc($bookid);
+    $bookid = $db->query($sqlbook);
+    $row = $bookid->fetchArray(SQLITE3_ASSOC);
     $bookingid = $row["booking_id"];
     $sql = "UPDATE booking
     SET room_id = '$roomid'
     WHERE booking_id = '$bookingid'";
-    $result = mysqli_query($conn, $sql);
+    $result = $db->query($sql);
+    // echo $sqlbook;
     header("Location: seat.php?booking_id=$bookingid");
     exit();
 }
 
 $sql = "SELECT * FROM room";
-$result = mysqli_query($conn, $sql);
+$result = $db->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -88,7 +96,7 @@ $result = mysqli_query($conn, $sql);
 
     .nav {
         width: 50%;
-        padding-left: 26%;
+        padding-left: 20%;
         padding-right: 3%;
     }
 
@@ -199,7 +207,7 @@ $result = mysqli_query($conn, $sql);
         <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">Omakase Room</h1>
         <hr>
         <div class="content">
-            <?php while ($row = $result->fetch_assoc()) { ?>
+            <?php while ($row = $result->fetchArray(SQLITE3_ASSOC)) { ?>
                 <form action="" method="post">
                     <div class="max-w-sm rounded overflow-hidden shadow-lg">
                         <img class="h-64" src="<?php echo $row['room_img'] ?>" alt="">

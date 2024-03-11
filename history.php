@@ -3,10 +3,16 @@
     ini_set('display_errors', 1);
     session_start();
     $cus_id = $_SESSION["cus_id"];
-    $conn = mysqli_connect("localhost", "root", "", "omakase");
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
+    class MyDB extends SQLite3
+    {
+        function __construct()
+        {
+            $this->open('omakase.db');
+        }
     }
+
+    // 2. Open Database 
+    $db = new MyDB();
     ?>
 
     <!DOCTYPE html>
@@ -229,32 +235,31 @@
                         $sql = "SELECT booking.timestamp,booking.booking_id, customers.first_name, customers.last_name, booking.booking_date, booking.total_price, booking.booking_status
             FROM booking 
             JOIN customers ON booking.cus_id = customers.cus_id WHERE booking.cus_id = '$cus_id' ORDER BY  booking.timestamp DESC;";
-                        $result = mysqli_query($conn, $sql);
+                        $result = $db->query($sql);
 
-                        if (mysqli_num_rows($result) > 0) {
-                            // output data of each row
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                $id = $row['booking_id'];
-                                echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">' .
-                                    '<td class="px-6 py-4">' . $row['booking_id'] . '</td>' .
-                                    '<td class="px-6 py-4">' . $row['first_name'] . '</td>' .
-                                    '<td class="px-6 py-4">' . $row['last_name'] . '</td>' .
-                                    '<td class="px-6 py-4">' . $row['booking_date'] . '</td>' .
-                                    '<td class="px-6 py-4">' . $row['total_price'] . '</td>' .
-                                    '<td class="px-6 py-4"><div style="width: 80px; background-color: #ffe946; border-radius:20px; text-align: center;">' . $row['booking_status'] . '</td>';
+                        // output data of each row
+                        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+                            $id = $row['booking_id'];
+                            echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">' .
+                                '<td class="px-6 py-4">' . $row['booking_id'] . '</td>' .
+                                '<td class="px-6 py-4">' . $row['first_name'] . '</td>' .
+                                '<td class="px-6 py-4">' . $row['last_name'] . '</td>' .
+                                '<td class="px-6 py-4">' . $row['booking_date'] . '</td>' .
+                                '<td class="px-6 py-4">' . $row['total_price'] . '</td>' .
+                                '<td class="px-6 py-4"><div style="width: 80px; background-color: #ffe946; border-radius:20px; text-align: center;">' . $row['booking_status'] . '</td>';
 
-                                // Check if booking status is "booking" before displaying the view link
-                                if ($row['booking_status'] == 'booking' || $row['booking_status'] == 'checked') {
-                                    echo '<td class="px-6 py-4">' .
-                                        '<a href="booking_details.php?booking_id=' . $row['booking_id'] .  '" class="view-link">view</a>
+                            // Check if booking status is "booking" before displaying the view link
+                            if ($row['booking_status'] == 'booking' || $row['booking_status'] == 'checked') {
+                                echo '<td class="px-6 py-4">' .
+                                    '<a href="booking_details.php?booking_id=' . $row['booking_id'] .  '" class="view-link">view</a>
                                         </td>';
-                                } else {
-                                    echo '<td class="px-6 py-4">Not available</td>';
-                                }
-
-                                echo '</tr>';
+                            } else {
+                                echo '<td class="px-6 py-4">Not available</td>';
                             }
+
+                            echo '</tr>';
                         }
+
                         ?>
                     </tbody>
                 </table>

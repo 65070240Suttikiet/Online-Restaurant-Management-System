@@ -2,13 +2,27 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$conn = mysqli_connect("localhost", "root", "", "omakase");
+class MyDB extends SQLite3
+{
+    function __construct()
+    {
+        $this->open('omakase.db');
+    }
+}
+
+// Open Database 
+$db = new MyDB();
+if(!$db) {
+    echo $db->lastErrorMsg();
+    exit();
+}
+
 $bookingid = $_GET['booking_id'];
 
 $sqlcourse = "SELECT course_id FROM booking WHERE booking_id = '$bookingid'";
-$resultcourse = mysqli_query($conn, $sqlcourse);
+$resultcourse = $db->query($sqlcourse);
 
-$rowcourse = mysqli_fetch_assoc($resultcourse);
+$rowcourse = $resultcourse->fetchArray(SQLITE3_ASSOC);
 $course_id = $rowcourse['course_id'];
 
 $sql = "SELECT * FROM detail_course_menu 
@@ -17,23 +31,29 @@ JOIN course
 ON detail_course_menu.menu_name = menu.menu_name
 AND detail_course_menu.course_id = course.course_id
 WHERE detail_course_menu.course_id = '$course_id'";
-$result = mysqli_query($conn, $sql);
+$result = $db->query($sql);
 
 $coursename = "SELECT course_name FROM course WHERE course_id = '$course_id'";
-$resultname = mysqli_query($conn, $coursename);
-$rowname = mysqli_fetch_assoc($resultname);
+$resultname = $db->query($coursename);
+$rowname = $resultname->fetchArray(SQLITE3_ASSOC);
 $course_name = $rowname["course_name"];
 
 if (isset($_POST['sub'])) {
     $selectedMenus = $_POST['menu'];
     foreach ($selectedMenus as $menuName) {
-        $escapedMenuName = mysqli_real_escape_string($conn, $menuName);
-        $sqll = "INSERT INTO orders (course_id,booking_id,menu_name,order_status) VALUES ('$course_id','$bookingid','$escapedMenuName','wait')";
-        $resultorder = mysqli_query($conn, $sqll);
-        header("Location: confirmbook.php?booking_id=$bookingid");
+        $menuName = $db->escapeString($menuName);
+        $sqll = "INSERT INTO orders (course_id, booking_id, menu_name, order_status) VALUES ('$course_id', '$bookingid', '$menuName', 'wait')";
+        $resultorder = $db->exec($sqll);
+        if(!$resultorder) {
+            echo $db->lastErrorMsg();
+            exit();
+        }
     }
+    header("Location: confirmbook.php?booking_id=$bookingid");
+    exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -256,7 +276,11 @@ if (isset($_POST['sub'])) {
             color: white;
             transform: scale(1.05);
         }
-        p,span,h2,button{
+
+        p,
+        span,
+        h2,
+        button {
             font-family: "Noto Sans Thai", sans-serif;
         }
     </style>
@@ -287,7 +311,7 @@ if (isset($_POST['sub'])) {
             </div>
         </div>
         <div class="content">
-            <?php while ($row = $result->fetch_assoc()) { ?>
+            <?php while ($row = $result->fetchArray(SQLITE3_ASSOC)) { ?>
                 <div class="manucon">
                     <img class="h-46 rounded-md pic" src="<?php echo $row['menu_img'] ?>" alt="">
                     <br>

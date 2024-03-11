@@ -2,11 +2,18 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
-$conn = mysqli_connect("localhost", "root", "", "omakase");
+class MyDB extends SQLite3 {
+    function __construct() {
+       $this->open('omakase.db');
+    }
+ }
+
+ // 2. Open Database 
+ $db = new MyDB();
 $cus_id = $_SESSION['cus_id'];
 $sql = "SELECT username from customers where cus_id = $cus_id";
-$result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_array($result);
+$result = $db->query($sql);
+$row = $result->fetchArray(SQLITE3_ASSOC);
 $username = $row['username'];
 // echo $username;
 ?>
