@@ -1,8 +1,15 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "omakase");
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
+  class MyDB extends SQLite3 {
+    function __construct() {
+      $this->open('../db/omakase.db');
+    }
+  }
+
+  // 2. Open Database 
+  $db = new MyDB();
+  if(!$db) {
+    echo $db->lastErrorMsg();
+  }
 ?>
 
 <!DOCTYPE html>
@@ -248,10 +255,9 @@ if (!$conn) {
 
                 <?php
                 $sql = "SELECT * FROM course;";
-                $result = mysqli_query($conn, $sql);
+                $result = $db->query($sql);
 
-                if (mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
+                    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 
                 ?>
 
@@ -265,9 +271,7 @@ if (!$conn) {
 
                 <?php
                     }
-                } else {
-                    echo "0 results";
-                }
+                
                 ?>
 
 
@@ -283,16 +287,16 @@ if (!$conn) {
                 <?php
                     if (isset($_GET['course_id'])) {
                         $course_id = $_GET['course_id'];
-                        $choose = "SELECT detail_course_menu.menu_name, course.course_name
+                        $choose = "SELECT detail_course_menu.menu_name, course.course_name, COUNT(course.course_name) AS count
                                             FROM detail_course_menu
                                             JOIN course ON course.course_id = detail_course_menu.course_id
                                             WHERE detail_course_menu.course_id = '{$course_id}';";
-                        $result = mysqli_query($conn, $choose);
-                        $row = mysqli_fetch_assoc($result);
-                        $num_rows = mysqli_num_rows($result);
+                        $result = $db->query($choose);
+                        $row =  $result->fetchArray(SQLITE3_ASSOC);
+                        // $num_rows = mysqli_num_rows($result);
                 
                 ?>
-                    <p>เมนูทั้งหมด : <?php echo $num_rows?></p>
+                    <p>เมนูทั้งหมด : <?php echo $row['count']?></p>
                     <p>Course : <?php echo $row['course_name']?> </p>
                     <a href='menu-add.php?course_id=<?php echo  $course_id ?>'><button style="
                   padding: 8px;
@@ -314,9 +318,9 @@ if (!$conn) {
                                             FROM detail_course_menu
                                             JOIN course ON course.course_id = detail_course_menu.course_id
                                             WHERE detail_course_menu.course_id = '{$course_id}';";
-                                $result = mysqli_query($conn, $choose);
+                                $result = $db->query($choose);
 
-                                if (mysqli_num_rows($result) > 0) {
+                              
                 ?>
                 
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg" style="margin-top: 20px">
@@ -336,7 +340,7 @@ if (!$conn) {
                         </thead>
                         <tbody>
                                     
-                            <?php    while ($row = mysqli_fetch_assoc($result)){ ?>
+                            <?php    while ($row = $result->fetchArray(SQLITE3_ASSOC)){ ?>
                                         <tr class="border-b border-gray-200 dark:border-gray-700">
                                             <td class="px-6 py-4" style="padding-left: 105px;"><?php echo $row['course_name'] ?></td>
                                             <td class="px-6 py-4" style="padding-left: 110px"><?php echo $row['menu_name'] ?></td>
@@ -347,9 +351,7 @@ if (!$conn) {
 
                             <?php
                                     }
-                                } else {
-                                    echo "0 results";
-                                }
+                                
                             }
                             ?>
 
@@ -366,5 +368,5 @@ if (!$conn) {
 </html>
 
 <?php
-mysqli_close($conn);
+
 ?>

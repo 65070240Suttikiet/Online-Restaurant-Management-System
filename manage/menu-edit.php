@@ -1,13 +1,16 @@
 <?php
-$servername = "localhost";
-$username = "root"; //ตามที่กำหนดให้
-$password = ""; //ตามที่กำหนดให้
-$dbname = "omakase";    //ตามที่กำหนดให้
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
+class MyDB extends SQLite3
+{
+  function __construct()
+  {
+    $this->open('../db/omakase.db');
+  }
+}
+
+// 2. Open Database 
+$db = new MyDB();
+if (!$db) {
+  echo $db->lastErrorMsg();
 }
 
 ?>
@@ -29,18 +32,13 @@ if (!$conn) {
 
 
     $sql = "UPDATE menu SET menu_name='$menu_name', menu_detail='$menu_detail' , menu_img='$menu_img' WHERE menu_name='$menu_name';";
-    if ($conn->query($sql) === TRUE) {
+    if ($db->query($sql) == TRUE) {
         echo "<script>alert('การอัพเดทเมนูสำเร็จ');</script>";
         echo "<script>window.location.href = 'home-menu.php';</script>";
     }else {
-        echo "Error updating record: " . $conn->error;
+        echo "Error updating record";
     }
     ?>
 </body>
 
 </html>
-
-<?php
-// close connection
-mysqli_close($conn);
-?>
