@@ -71,20 +71,20 @@
         <div class="flex items-center justify-between mb-8">
 
             <div class="flex items-center">
-                <img class="h-8 w-8 mr-2 mt-2" src="https://tailwindflex.com/public/images/logos/favicon-32x32.png" alt="Logo" />
+                <img class="h-8 w-8 mr-2 mt-2" src="../logo.png" alt="Logo" />
                 <div class="text-gray-700 font-semibold text-lg">Gangnam Omakase</div>
             </div>
             <div class="text-gray-700">
-                <div class="font-bold text-xl mb-2">Bill</div>
+                <div class="font-bold text-xl mb-2">ใบเสร็จ</div>
 
                 <div class="text-sm"><?php echo 'วันที่ : ' . $row['booking_date'] ?></div>
-                <div class="text-sm"><?php echo 'Booking ID : ' . $row['booking_id'] ?></div>
+                <div class="text-sm"><?php echo 'ไอดีการจอง : ' . $row['booking_id'] ?></div>
                 <div class="text-sm"><?php echo 'สถานะ : ' . $row['booking_status'] ?></div>
 
             </div>
         </div>
         <div class="border-b-2 border-gray-300 pb-8 mb-8">
-            <h2 class="text-2xl font-bold mb-4">Bill To:</h2>
+            <h2 class="text-2xl font-bold mb-4">ใบเสร็จถึง:</h2>
             <div class="text-gray-700 mb-2"><?php echo $row['first_name'] . ' ' . $row['last_name'] ?></div>
             <div class="text-gray-700 mb-2"><?php echo $row['phone'] ?></div>
             <div class="text-gray-700"><?php echo $row['email'] ?></div>
@@ -112,7 +112,7 @@
             <div class="text-gray-700 mr-2">ราคารวม :</div>
             <div class="text-gray-700 font-bold text-xl"><?php echo $row['total_price'] . ' บาท' ?></div>
         </div>
-        <form method="post" action="">
+        <form method="post">
             <input type="hidden" name="booking_id" value="<?php echo $row['booking_id']; ?>">
             <div class="border-t-2 border-gray-300 pt-8 mb-5" style="text-align: center;">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" name="confirm_checkbill" type="submit">

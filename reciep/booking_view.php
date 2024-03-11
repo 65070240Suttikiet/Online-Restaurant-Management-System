@@ -188,15 +188,15 @@
 
     <div class="top">
       <a class="fa-solid fa-arrow-left fa-2xl" id="i" href="booking.php"></a>
-      <h1 class="title">BOOKING</h1>
-      <img src="../logo.png" alt="">
+      <h1 class="title">รายละเอียดการจอง</h1>
+      <img src="../logo.png">
     </div>
 
     <div class="main">
       <div class=row1>
         <div class="row1_l">
           <div class="row1_l_l">
-            <p>Booking ID :</p>
+            <p>ID การจอง :</p>
           </div>
           <div class="row1_l_r">
             <p><?php echo $row['booking_id'] ?></p>
@@ -243,7 +243,7 @@
         </div>
         <div class="row2_r">
           <div class="row2_r_l">
-            <p class="p2">Customer ID : </p>
+            <p class="p2">ID ลูกค้า : </p>
             <p class="p2">ชื่อ : </p>
             <p class="p2">นามสกุล : </p>
             <p class="p2">เบอร์โทร : </p>
@@ -262,17 +262,17 @@
     <form method="post" action="">
       <input type="hidden" name="booking_id" value="<?php echo $row['booking_id']; ?>">
       <div class="but">
-        <button type="submit" name="confirm_checkin" >ยืนยันการ check-in</button>
+        <button type="submit" name="confirm_checkin" >ยืนยันการเช็คอิน</button>
       </div>
     </form>
   </div>
 
   <?php
   if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm_checkin'])) {
-    $booking_id = mysqli_real_escape_string($conn, $_POST['booking_id']);
+    $booking_id = $_POST['booking_id'];
     $update_sql = "UPDATE booking SET booking_status = 'check-in' WHERE booking_id = '$booking_id';";
     $update_result = mysqli_query($conn, $update_sql);
-    echo '<script>alert("ยืนยันการ check-in สำเร็จ");window.location.replace("booking.php");</script>';
+    echo '<script>alert("ยืนยันการเช็คอินสำเร็จ");window.location.replace("booking.php");</script>';
   }
   mysqli_close($conn);
   ?>

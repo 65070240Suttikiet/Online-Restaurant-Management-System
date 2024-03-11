@@ -83,8 +83,8 @@ $username = $row['username'];
 
         .nav {
             width: 50%;
-            padding-left: 32%;
-            padding-right: 3%;
+            padding-left: 26%;
+            padding-right: 0%;
         }
 
         .nav__list {
@@ -99,7 +99,7 @@ $username = $row['username'];
             padding: 10px 0px 5px 0px;
             margin-left: 10px;
             color: black;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: 500;
             border-radius: 5px;
             position: relative;
