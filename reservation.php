@@ -18,6 +18,9 @@ if (isset($_POST['sub'])) {
     // echo $booking_datetime;
     $_SESSION['booking_datetime'] = $booking_datetime;
     $sql = "INSERT INTO booking(cus_id,booking_date,timestamp) VALUES('$cus_id','$date','$booking_datetime')";
+    $sql1 = "INSERT INTO seat_booking (booking_date,seat_status,timestamp) VALUES('$date','uv','$booking_datetime')";
+    $result1 = $db->query($sql1);
+    $_SESSION['date'] = $date;
     $result = $db->query($sql);
     // echo $sql;
     header("Location: room.php?date=$date");

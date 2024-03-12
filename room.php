@@ -11,6 +11,7 @@ class MyDB extends SQLite3 {
  $db = new MyDB();
 session_start();
 $cus_id = $_SESSION["cus_id"];
+$date = $_SESSION['date'];
 $time = $_SESSION['booking_datetime'];
 if (isset($_POST['sub'])) {
     $roomid = $_POST['room_id'];
@@ -23,7 +24,6 @@ if (isset($_POST['sub'])) {
     SET room_id = '$roomid'
     WHERE booking_id = '$bookingid'";
     $result = $db->query($sql);
-    // echo $sqlbook;
     header("Location: seat.php?booking_id=$bookingid");
     exit();
 }

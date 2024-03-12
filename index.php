@@ -13,6 +13,7 @@ session_start();
 if (isset($_GET["mail"]) && isset($_GET["pass"])) {
     $email = $_GET["mail"];
     $password = $_GET["pass"];
+
     //ผู้จัดการ
     if ($email == "gangnam@gmail.com" && $password == "gangnammanager") {
         header("Location: manage/home-manager.php");
@@ -28,7 +29,7 @@ if (isset($_GET["mail"]) && isset($_GET["pass"])) {
         header("Location: reciep/booking.php");
         exit;
     }
-
+    
     $sql = "SELECT * FROM customers WHERE email = '$email'";
     $result = $db->query($sql);
     $row = $result->fetchArray(SQLITE3_ASSOC);
@@ -326,7 +327,7 @@ if (isset($_GET["mail"]) && isset($_GET["pass"])) {
                     <span class="icon">
                         <ion-icon name="lock-closed-outline"></ion-icon>
                     </span>
-                    <input type="password" name="password" required>
+                    <input type="password" name="confirmed_pass" required>
                     <label>ยืนยันรหัสผ่าน</label>
                 </div>
                 <button type="submit" class="btn" name="btnregis">สมัครสมาชิก</button>
