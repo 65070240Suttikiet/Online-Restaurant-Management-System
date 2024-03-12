@@ -321,7 +321,7 @@ if (isset($_POST['sub'])) {
                         <?php if ($seat_status == 'uv') { ?>
                             <input type="radio" name="seat" value="<?php echo $row['seat_id']; ?>" id="<?php echo $row['seat_id']; ?>" class="<?php echo $seat_status ?>" disabled />
                         <?php } else { ?>
-                            <input type="radio" name="seat" value="<?php echo $row['seat_id']; ?>" id="<?php echo $row['seat_id']; ?>" class="<?php echo $seat_status ?>" />
+                            <input type="radio" name="seat" value="<?php echo $row['seat_id']; ?>" id="<?php echo $row['seat_id']; ?>" class="<?php echo $seat_status ?>">
                         <?php } ?>
                         <label for="<?php echo $row['seat_id']; ?>" class="ml-2 bg-slate-300"><?php echo $row['seat_id']; ?></label>
                     </div>

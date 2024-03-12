@@ -15,7 +15,6 @@ $sql = "SELECT username from customers where cus_id = $cus_id";
 $result = $db->query($sql);
 $row = $result->fetchArray(SQLITE3_ASSOC);
 $username = $row['username'];
-// echo $username;
 ?>
 <!DOCTYPE html>
 <html lang="en">

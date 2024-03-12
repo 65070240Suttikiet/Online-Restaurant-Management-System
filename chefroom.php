@@ -16,11 +16,9 @@ $result = $db->query($sql);
 $sql1 = "SELECT * FROM room WHERE room_id IN (4, 5)";
 $result1 = $db->query($sql1);
 
-// Handle form submission
 if (isset($_POST['sub'])) {
     $room_id = $_POST['sub'];
     $_SESSION['room_id'] = $room_id;
-    // Redirect to cheffood.php
     header('Location: cheffood.php');
     exit;
 }

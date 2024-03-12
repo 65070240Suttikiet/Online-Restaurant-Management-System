@@ -367,7 +367,7 @@ if (isset($_POST['sub'])) {
             const form = document.querySelector('.form');
             form.addEventListener('submit', function(event) {
                 const checkedCount = document.querySelectorAll('.check-input:checked').length;
-                if (checkedCount !== 8) {
+                if (checkedCount != 8) {
                     event.preventDefault();
                     alert('โปรดเลือกเมนูอีก ' + count + ' รายการ');
                 }

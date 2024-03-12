@@ -223,7 +223,7 @@ if (isset($_POST['sub'])) {
         <form action="" method="POST" class="form">
             <div>
                 <label for="date" class="">Date - Required</label><br>
-                <input type="date" id="date" class="date" name="date" style="color:black;">
+                <input type="date" id="date" class="date" name="date" style="color:black;" required>
             </div>
             <button name="sub" class="btn-primary">ยืนยัน</button>
         </form>
