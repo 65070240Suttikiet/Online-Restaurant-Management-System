@@ -204,25 +204,25 @@
         <li >
           <a href="home-manager.php">
             <i class="fa-solid fa-wallet"></i>
-            <span>Deshboard</span>
+            <span>แดชบอร์ด</span>
           </a>
         </li>
         <li>
           <a href="home-menu.php">
             <i class="fa-solid fa-table-list"></i>
-            <span>Menu</span>
+            <span>เมนู</span>
           </a>
         </li>
         <li class="active">
           <a href="#">
             <i class="fa-solid fa-user"></i>
-            <span>Customer</span>
+            <span>ลูกค้า</span>
           </a>
         </li>
         <li class="logout" >
           <a href="../index.php">
             <i class="fa-solid fa-right-from-bracket"></i>
-            <span>Log Out</span>
+            <span>ออกจากระบบ</span>
           </a>
         </li>
       </div>
