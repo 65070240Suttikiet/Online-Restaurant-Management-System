@@ -1,84 +1,46 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-class MyDB extends SQLite3 {
-    function __construct() {
-      $this->open('../db/omakase.db');
-    }
-  }
 
-  // 2. Open Database 
-  $db = new MyDB();
-  if(!$db) {
+class MyDB extends SQLite3
+{
+    function __construct()
+    {
+        $this->open('../db/omakase.db');
+    }
+}
+
+$db = new MyDB();
+if (!$db) {
     echo $db->lastErrorMsg();
-  }
-//ทั้งหมด
-$sql = "SELECT SUM(total_price),COUNT(booking_id) FROM booking";
-$sql1 = "SELECT COUNT(booking_id) FROM booking WHERE booking_status = 'checked'";
+}
+
+$date1 = 'ทั้งหมด';
+$dateCondition = isset($_POST['sub']) ? "AND booking_date = '{$_POST['date']}'" : "";
+
+$sql = "SELECT COALESCE(SUM(total_price), 0) AS total_price_sum,
+               COALESCE(COUNT(booking_id), 0) AS booking_count
+        FROM booking WHERE 1 $dateCondition";
+
+$sql1 = "SELECT COALESCE(COUNT(booking_id), 0) AS successful_booking_count
+         FROM booking WHERE booking_status = 'checked' $dateCondition";
 
 $result = $db->query($sql);
-$result1 = $db->query($sql1);
-
 $row = $result->fetchArray(SQLITE3_ASSOC);
-$sumprice = $row["SUM(total_price)"];
-$countbook = $row['COUNT(booking_id)'];
+$sumprice = $row["total_price_sum"];
+$countbook = $row['booking_count'];
+
+$result1 = $db->query($sql1);
 $row1 = $result1->fetchArray(SQLITE3_ASSOC);
+$countbooksuc = $row1['successful_booking_count'];
 
-$countbooksuc = $row1['COUNT(booking_id)'];
-$date1 = 'ทั้งหมด';
-
-$sql2 = "SELECT COUNT(course_id) FROM booking WHERE course_id = 1";
-$result2 = $db->query($sql2);
-$row2 = $result2->fetchArray(SQLITE3_ASSOC);
-$countcourse1 = $row2["COUNT(course_id)"];
-
-$sql3 = "SELECT COUNT(course_id) FROM booking WHERE course_id = 2";
-$result3 = $db->query($sql3);
-$row3 = $result3->fetchArray(SQLITE3_ASSOC);
-$countcourse2 = $row3["COUNT(course_id)"];
-
-$sql4 = "SELECT COUNT(course_id) FROM booking WHERE course_id = 3";
-$result4 = $db->query($sql4);
-$row4 = $result4->fetchArray(SQLITE3_ASSOC);
-$countcourse3 = $row4["COUNT(course_id)"];
-
-$sql5 = "SELECT COUNT(course_id) FROM booking WHERE course_id = 4";
-$result5 = $db->query($sql5);
-$row5 = $result5->fetchArray(SQLITE3_ASSOC);
-$countcourse4 = $row5["COUNT(course_id)"];
-//แยกวัน
-if (isset($_POST['sub'])) {
-    $date = $_POST['date'];
-    $date1 = "วันที่ ".$_POST['date'];
-    $sql = "SELECT COALESCE(SUM(total_price), 0) AS total_price_sum,COALESCE(COUNT(booking_id), 0) AS booking_count FROM booking WHERE booking_date = '$date'";
-    $sql1 = "SELECT COALESCE(COUNT(booking_id), 0) AS successful_booking_count FROM booking WHERE booking_status = 'checked' AND booking_date = '$date'";
-    $result = $db->query($sql);
-    $result1 = $db->query($sql1);
-    $row = $result->fetchArray(SQLITE3_ASSOC);
-    $row1 = $result1->fetchArray(SQLITE3_ASSOC);
-    $sumprice = $row["total_price_sum"];
-    $countbook = $row['booking_count'];
-    $countbooksuc = $row1['successful_booking_count'];
-
-    $sql2 = "SELECT COALESCE(COUNT(course_id),0) FROM booking WHERE course_id = '1' AND booking_date = '$date'";
-    $result2 = $db->query($sql2);
-    $row2 = $result2->fetchArray(SQLITE3_ASSOC);
-    $countcourse1 = $row2["COALESCE(COUNT(course_id),0)"];
-
-    $sql3 = "SELECT COALESCE(COUNT(course_id),0) FROM booking WHERE course_id = '2' AND booking_date = '$date'";
-    $result3 = $db->query($sql3);
-    $row3 = $result3->fetchArray(SQLITE3_ASSOC);
-    $countcourse2 = $row3["COALESCE(COUNT(course_id),0)"];
-
-    $sql4 = "SELECT COALESCE(COUNT(course_id),0) FROM booking WHERE course_id = '3' AND booking_date = '$date'";
-    $result4 = $db->query($sql4);
-    $row4 = $result4->fetchArray(SQLITE3_ASSOC);
-    $countcourse3 = $row4["COALESCE(COUNT(course_id),0)"];
-
-    $sql5 = "SELECT COALESCE(COUNT(course_id),0) FROM booking WHERE course_id = '4' AND booking_date = '$date'";
-    $result5 = $db->query($sql5);
-    $row5 = $result5->fetchArray(SQLITE3_ASSOC);
-    $countcourse4 = $row5["COALESCE(COUNT(course_id),0)"];
+$countcourse = array();
+for ($i = 1; $i <= 4; $i++) {
+    $sqlCourse = "SELECT COALESCE(COUNT(course_id), 0) AS count_course
+                  FROM booking WHERE course_id = '$i' $dateCondition";
+    $resultCourse = $db->query($sqlCourse);
+    $rowCourse = $resultCourse->fetchArray(SQLITE3_ASSOC);
+    $countcourse[$i] = $rowCourse['count_course'];
 }
 ?>
 
@@ -295,7 +257,6 @@ if (isset($_POST['sub'])) {
             background-color: #fff;
             border-radius: 30px;
         }
-
     </style>
 </head>
 
@@ -322,7 +283,7 @@ if (isset($_POST['sub'])) {
                     </a>
                 </li>
                 <li class="logout">
-                <a href="../index.php">
+                    <a href="../index.php">
                         <i class="fa-solid fa-right-from-bracket"></i>
                         <span>Log Out</span>
                     </a>
@@ -379,7 +340,7 @@ if (isset($_POST['sub'])) {
 
 <script>
     const xValues = ["Azami", "Samurai", "Otsu", "Gangnam"];
-    const yValues = [<?php echo $countcourse1 ?>, <?php echo $countcourse2 ?>, <?php echo $countcourse3 ?>, <?php echo $countcourse4 ?>];
+    const yValues = [<?= $countcourse[1] ?>, <?= $countcourse[2] ?>, <?= $countcourse[3] ?>, <?= $countcourse[4] ?>];
     const barColors = ["red", "green", "blue", "orange"];
 
     new Chart("myChart", {
@@ -402,12 +363,13 @@ if (isset($_POST['sub'])) {
             scales: {
                 y: {
                     ticks: {
-                        beginAtZero: true, // เริ่มแกน y ที่ค่า 0
-                        stepSize: 1 // กำหนดขนาดของขั้นแต่ละหน่วยบนแกน y
+                        beginAtZero: true,
+                        stepSize: 1
                     }
                 }
             }
         }
     });
 </script>
+
 </html>

@@ -13,6 +13,7 @@ session_start();
 if (isset($_GET["mail"]) && isset($_GET["pass"])) {
     $email = $_GET["mail"];
     $password = $_GET["pass"];
+
     //ผู้จัดการ
     if ($email == "gangnam@gmail.com" && $password == "gangnammanager") {
         header("Location: manage/home-manager.php");
@@ -28,7 +29,7 @@ if (isset($_GET["mail"]) && isset($_GET["pass"])) {
         header("Location: reciep/booking.php");
         exit;
     }
-
+    
     $sql = "SELECT * FROM customers WHERE email = '$email'";
     $result = $db->query($sql);
     $row = $result->fetchArray(SQLITE3_ASSOC);
@@ -266,21 +267,19 @@ if (isset($_GET["mail"]) && isset($_GET["pass"])) {
                     <input type="password" name="pass" required>
                     <label>รหัสผ่าน</label>
                 </div>
-                <div class="remember-forgot">
-                </div>
                 <a href="reservation.php">
                     <button type="submit" class="btn" id="btnlogin" name="login" value="Login">เข้าสู่ระบบ</button>
                 </a>
                 <div class="login-register">
                     <p>ไม่มีบัญชี?
-                        <a href="#" class="register-link">สมัครสมาชิก</a>
+                        <a href="#" class="register-link">ลงทะเบียน</a>
                     </p>
                 </div>
             </form>
         </div>
         <!-- หน้า Register -->
         <div class="form-box register">
-            <h2>สมัครสมาชิก</h2>
+            <h2>ลงทะเบียน</h2>
             <form action="register_db.php" method="POST">
                 <div class="input-box">
                     <span class="icon">
@@ -328,7 +327,7 @@ if (isset($_GET["mail"]) && isset($_GET["pass"])) {
                     <span class="icon">
                         <ion-icon name="lock-closed-outline"></ion-icon>
                     </span>
-                    <input type="password" name="password" required>
+                    <input type="password" name="confirmed_pass" required>
                     <label>ยืนยันรหัสผ่าน</label>
                 </div>
                 <button type="submit" class="btn" name="btnregis">สมัครสมาชิก</button>

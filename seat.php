@@ -1,14 +1,19 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-class MyDB extends SQLite3 {
-    function __construct() {
-       $this->open('db/omakase.db');
+class MyDB extends SQLite3
+{
+    function __construct()
+    {
+        $this->open('db/omakase.db');
     }
- }
+}
 
- // 2. Open Database 
- $db = new MyDB();
+// 2. Open Database 
+$db = new MyDB();
+session_start();
+$date = $_SESSION['date'];
+$datetime = $_SESSION['booking_datetime'];
 $bookingid = $_GET['booking_id'];
 $sql = "SELECT room_id from booking WHERE booking_id = '$bookingid'";
 $result1 = $db->query($sql);
@@ -24,8 +29,10 @@ if (isset($_POST['sub'])) {
     SET seat_id = '$seat'
     WHERE booking_id = '$bookingid'";
     $result = $db->query($sql);
+    $sql1 = "UPDATE seat_booking SET seat_id = '$seat' WHERE timestamp = '$datetime'";
+    $result1 = $db->query($sql1);
     header("Location: course.php?booking_id=$bookingid");
-    exit(); // echo $sql;
+    exit();
 }
 ?>
 <!DOCTYPE html>
@@ -285,12 +292,36 @@ if (isset($_POST['sub'])) {
         </div>
         <form action="" method="post" class="form">
             <div class="grid grid-cols-5 gap-4 seat">
-                <?php while ($row = $seatresult->fetchArray(SQLITE3_ASSOC)) { ?>
+                <?php
+                while ($row = $seatresult->fetchArray(SQLITE3_ASSOC)) {
+                    $seat_id = $row['seat_id'];
+                    $seat_status = $row['seat_status'];
+                    $seat_uv_query = "SELECT * FROM seat_booking WHERE seat_id = $seat_id AND booking_date = '$date'";
+                    // echo $seat_uv_query;
+                    $seat_booking_result = $db->query($seat_uv_query);
+                    if ($seat_booking_result) { // Check if query was successful
+                        $seat_booking_row = $seat_booking_result->fetchArray(SQLITE3_ASSOC);
+                        if ($seat_booking_row) { // Check if there are results
+                            $seat_re = $seat_booking_row["seat_status"];
+                            if ($seat_re == 'uv') {
+                                $seat_status = "uv";
+                            } else {
+                                $seat_status = "av";
+                            }
+                        } else {
+                            $seat_status = "av";
+                        }
+                    } else {
+                        $seat_status = "error";
+                    }
+                ?>
+
                     <div class="flex items-center justify-center">
-                        <?php if ($row['seat_status'] == 'uv') { ?>
-                            <input type="radio" name="seat" value="<?php echo $row['seat_id']; ?>" id="<?php echo $row['seat_id']; ?>" class="<?php echo $row['seat_status'] ?>" disabled />
+
+                        <?php if ($seat_status == 'uv') { ?>
+                            <input type="radio" name="seat" value="<?php echo $row['seat_id']; ?>" id="<?php echo $row['seat_id']; ?>" class="<?php echo $seat_status ?>" disabled />
                         <?php } else { ?>
-                            <input type="radio" name="seat" value="<?php echo $row['seat_id']; ?>" id="<?php echo $row['seat_id']; ?>" class="<?php echo $row['seat_status'] ?>" />
+                            <input type="radio" name="seat" value="<?php echo $row['seat_id']; ?>" id="<?php echo $row['seat_id']; ?>" class="<?php echo $seat_status ?>" />
                         <?php } ?>
                         <label for="<?php echo $row['seat_id']; ?>" class="ml-2 bg-slate-300"><?php echo $row['seat_id']; ?></label>
                     </div>

@@ -43,10 +43,17 @@
 
 <body>
     <?php
-    $conn = mysqli_connect("localhost", "root", "", "omakase");
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
+    class MyDB extends SQLite3
+    {
+        function __construct()
+        {
+            $this->open('../db/omakase.db');
+        }
     }
+
+    // 2. Open Database 
+
+    $db = new MyDB();
 
     if (isset($_GET['booking_id'])) {
         $booking_id = $_GET['booking_id'];
@@ -58,11 +65,10 @@
            ON booking.cus_id = customers.cus_id
            AND course.course_id = booking.course_id
            WHERE booking_id = '$booking_id';";
-    $result = mysqli_query($conn, $sql);
 
-    if (mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-    }
+    $ret = $db->query($sql);
+    $row = $ret->fetchArray(SQLITE3_ASSOC);
+
     ?>
     <div class="bg-white rounded-lg shadow-lg px-8 py-3 max-w-xl mx-auto" style="margin-top: 40px;">
         <div class="icon" style="display: flex; justify-content: center;">
@@ -97,7 +103,7 @@
                     <th class="text-gray-700 font-bold uppercase py-2">ราคา</th>
 
                 </tr>
-            </thead> 
+            </thead>
             <tbody>
                 <tr>
                     <td class="py-4 text-gray-700"><?php echo $row['course_name'] ?></td>

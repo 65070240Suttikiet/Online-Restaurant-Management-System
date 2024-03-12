@@ -6,17 +6,9 @@ class MyDB extends SQLite3 {
        $this->open('db/omakase.db');
     }
  }
-
- // 2. Open Database 
  $db = new MyDB();
-// session_start();
-// $cus_id = $_SESSION["cus_id"];
 $bookingid = $_GET['booking_id'];
-$sql = "SELECT * FROM booking 
-JOIN course
-JOIN customers
-ON booking.course_id = course.course_id
-AND customers.cus_id = booking.cus_id
+$sql = "SELECT * FROM booking JOIN course JOIN customers ON booking.course_id = course.course_id AND customers.cus_id = booking.cus_id
 WHERE booking.booking_id = '$bookingid'";
 $result = $db->query($sql);
 $seat = "SELECT seat_id from booking where booking_id = '$bookingid'";

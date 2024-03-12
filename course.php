@@ -12,7 +12,7 @@ class MyDB extends SQLite3 {
 if (isset($_POST['sub'])) {
     $course_id = $_POST['course_id'];
     $bookingid = $_GET['booking_id'];
-    $course = "SELECT price FROM course";
+    $course = "SELECT price FROM course WHERE course_id = '$course_id'";
     $resultprice = $db->query($course);
     $row = $resultprice->fetchArray(SQLITE3_ASSOC);
     $price = $row["price"];

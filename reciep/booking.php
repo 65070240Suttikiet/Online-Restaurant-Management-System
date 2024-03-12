@@ -21,6 +21,7 @@
       box-sizing: border-box;
       font-family: "Lato", sans-serif;
     }
+
     body {
       display: flex;
     }
@@ -213,14 +214,22 @@
       font-size: 15.5px;
     }
   </style>
+
 </head>
 
 <body>
   <?php
-  $conn = mysqli_connect("localhost", "root", "", "omakase");
-  if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+  class MyDB extends SQLite3
+  {
+    function __construct()
+    {
+      $this->open('../db/omakase.db');
+    }
   }
+
+  // 2. Open Database 
+
+  $db = new MyDB();
   ?>
   <div class="sidebar">
     <div class="logo">
@@ -276,11 +285,6 @@
 
       <div class="table-container">
         <?php
-        $conn = mysqli_connect("localhost", "root", "", "omakase");
-
-        if (!$conn) {
-          die("การเชื่อมต่อล้มเหลว: " . mysqli_connect_error());
-        }
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['booking_id'])) {
           $search_booking_id = $_POST['booking_id'];
@@ -293,6 +297,10 @@
             AND course.course_id = booking.course_id
             WHERE booking_status = 'booking'
             AND booking.booking_id = '$search_booking_id';";
+          $sqlcount = "SELECT COUNT(*) AS count 
+            FROM booking 
+            WHERE booking_status = 'booking'
+            AND booking.booking_id = '$search_booking_id';";
         } else {
           $sql = "SELECT booking_id, course_name, seat_id, room_id, booking_date, total_price, booking_status
             FROM booking 
@@ -301,11 +309,16 @@
             ON booking.cus_id = customers.cus_id
             AND course.course_id = booking.course_id
             WHERE booking_status = 'booking';";
+          $sqlcount = "SELECT COUNT(*) AS count 
+             FROM booking 
+             WHERE booking_status = 'booking';";
         }
+        $ret = $db->query($sql);
+        $retcount =  $db->query($sqlcount);
 
-        $result = mysqli_query($conn, $sql);
+        $rowcount = $retcount->fetchArray(SQLITE3_ASSOC);
 
-        if (mysqli_num_rows($result) > 0) {
+        if ($rowcount['count'] > 0) {
           echo '<table>
             <thead>
               <tr>
@@ -321,7 +334,7 @@
             </thead>
             <tbody>';
 
-          while ($row = mysqli_fetch_assoc($result)) {
+          while ($row = $ret->fetchArray(SQLITE3_ASSOC)) {
             $id = $row['booking_id'];
             echo '<tr>' .
               '<td>' . $row['booking_id'] . '</td>' .
@@ -340,7 +353,7 @@
           echo "ไม่พบข้อมูล Booking_id";
         }
 
-        mysqli_close($conn);
+        $db->close();
         ?>
       </div>
 

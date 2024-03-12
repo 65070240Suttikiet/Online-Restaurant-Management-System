@@ -246,13 +246,6 @@ $cus_id = $_SESSION["cus_id"];
             </a>
         </div>
     </div>
-
-    <?php
-
-    mysqli_close($conn);
-    ?>
-
-
 </body>
 
 </html>
