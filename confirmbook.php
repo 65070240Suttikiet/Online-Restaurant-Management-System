@@ -6,7 +6,7 @@ class MyDB extends SQLite3 {
        $this->open('db/omakase.db');
     }
  }
- $db = new MyDB();
+$db = new MyDB();
 $bookingid = $_GET['booking_id'];
 $sql = "SELECT * FROM booking JOIN course JOIN customers ON booking.course_id = course.course_id AND customers.cus_id = booking.cus_id
 WHERE booking.booking_id = '$bookingid'";
@@ -18,9 +18,7 @@ $seat = $seatid["seat_id"];
 
 if (isset($_POST["sub"])) {
     $sql1 = "UPDATE booking SET booking_status = 'booking' WHERE booking_id = '$bookingid'";
-    $sql2 = "UPDATE seat SET seat_status = 'uv' WHERE seat_id = '$seat'";
     $result1 = $db->query($sql1);
-    $result2 = $db->query($sql2);
     echo '<script>alert("ยืนยันการจองสำเร็จ");';
     echo 'window.location.href = "home.php";';
     echo '</script>';

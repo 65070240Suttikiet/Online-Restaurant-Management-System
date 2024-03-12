@@ -14,10 +14,8 @@ $db = new MyDB();
 if (!$db) {
     echo $db->lastErrorMsg();
 }
-
-$date1 = 'ทั้งหมด';
+$date1 = isset($_POST['date']) ? 'วันที่ ' . $_POST['date'] : 'ทั้งหมด';
 $dateCondition = isset($_POST['sub']) ? "AND booking_date = '{$_POST['date']}'" : "";
-
 $sql = "SELECT COALESCE(SUM(total_price), 0) AS total_price_sum,
                COALESCE(COUNT(booking_id), 0) AS booking_count
         FROM booking WHERE 1 $dateCondition";
