@@ -310,7 +310,7 @@ if (isset($_POST['sub'])) {
                     <?php while ($row = $result1->fetchArray(SQLITE3_ASSOC)) { ?>
                         <div class="grid-item4" id="grid4">
                             <div class="in_grid4">
-                                <h1>Shokugeki</h1>
+                            <h1><?php echo $row['room_name'] ?></h1>
                                 <img src="<?php echo $row['room_img'] ?>" alt="">
                                 <button type="submit" name="sub" value="<?php echo $row['room_id'] ?>">เลือก</button>
                             </div>
