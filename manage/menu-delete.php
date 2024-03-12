@@ -32,11 +32,12 @@ if (!$db) {
     $sql = "DELETE FROM menu WHERE menu_name = '$menu_name'";
     $sql1 = "DELETE FROM detail_course_menu WHERE menu_name = '$menu_name'";
     if ($db->query($sql) == TRUE & $db->query($sql1) == TRUE) {
-        echo "<script>alert('การลบเมนูสำเร็จ');</script>";
-        echo "<script>window.location.href = 'home-menu.php';</script>";
+      echo "<script>alert('การลบเมนูสำเร็จ');</script>";
+      echo "<script>window.location.href = 'home-menu.php';</script>";
 
     }else {
-        echo "Error updating record";
+      echo "<script>alert('การลบเมนูอาหารไม่สำเร็จ');</script>";
+      echo "<script>window.location.href = 'home-menu.php';</script>";
     }
     ?>
 </body>

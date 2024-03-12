@@ -32,7 +32,7 @@ if (isset($_POST['sub'])) {
     $sql1 = "UPDATE seat_booking SET seat_id = '$seat' WHERE timestamp = '$datetime'";
     $result1 = $db->query($sql1);
     header("Location: course.php?booking_id=$bookingid");
-    exit(); // echo $sql;
+    exit();
 }
 ?>
 <!DOCTYPE html>
@@ -313,7 +313,6 @@ if (isset($_POST['sub'])) {
                         }
                     } else {
                         $seat_status = "error";
-            
                     }
                 ?>
 

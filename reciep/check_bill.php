@@ -245,7 +245,7 @@
           </a>
         </li>
         <li class="active">
-          <a href="check_in.php">
+          <a href="check_bill.php">
             <i class="fa-solid fa-wallet"></i>
             <span>ชำระเงิน<span>
           </a>
