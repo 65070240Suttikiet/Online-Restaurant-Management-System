@@ -156,7 +156,7 @@ if (!$db) {
       <a href="#" onclick="back()"><i class="fa-solid fa-arrow-left"></i></a>
     </div>
     <ul class="menu">
-      <li>View Menu</li>
+      <li>ดูรายละเอียดเมนู</li>
     </ul>
     <div class="search">
       <i class="fa-solid fa-burger"></i>
