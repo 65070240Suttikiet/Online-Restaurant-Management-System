@@ -31,7 +31,7 @@ if (isset($_POST['sub'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Document</title>
+    <title>Chef Room</title>
     <style>
         @font-face {
             font-family: myWebFont;
