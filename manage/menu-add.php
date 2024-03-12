@@ -157,7 +157,7 @@ if (!$db) {
       <a href=" home-menu.php"><i class="fa-solid fa-arrow-left"></i></a>
     </div>
     <ul class="menu">
-      <li>Add Menu</li>
+      <li>เพิ่มเมนู</li>
     </ul>
     <div class="search">
       <i class="fa-solid fa-burger"></i>
@@ -194,13 +194,29 @@ if (!$db) {
           $row =  $result->fetchArray(SQLITE3_ASSOC);
           ?>
           <input name="course-id" id="course_id" value=<?php echo $course_id ?> class="hidden" />
-          <input name="course-name" readonly id="course_name" value=<?php echo $row['course_name'] ?> style="margin-bottom: 20px; padding: 10px;" class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
+          <input name="course-name" readonly id="course_name" value=<?php echo $row['course_name'] ?> style="margin-bottom: 20px; padding: 10px;" 
+          class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 
+          font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all 
+          placeholder-shown:border-blue-gray-200 focus:border-gray-900 focus:outline-0 
+          disabled:border-0 disabled:bg-blue-gray-50" />
           <label for="menu-name">ชื่อของเมนู</label><br>
-          <input name="menu-name" id="menu-name" placeholder="ชื่อเมนู" style="margin-bottom: 10px; padding: 10px;" class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
+          <input name="menu-name" id="menu-name" placeholder="ชื่อเมนู" 
+          style="margin-bottom: 10px; padding: 10px;" 
+          class="peer h-full w-full border-b border-blue-gray-200 bg-transparent 
+          pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 
+          transition-all placeholder-shown:border-blue-gray-200 
+          focus:border-gray-900 focus:outline-0 disabled:border-0 
+          disabled:bg-blue-gray-50" />
           <label for="menu-detail">รายละเอียดเมนู</label><br>
-          <textarea name="menu-detail" id="menu-detail" cols="55" rows="10" style="margin-top: 10px;  border: 1px solid #888; padding: 12px;"></textarea>
+          <textarea name="menu-detail" id="menu-detail" cols="55" rows="10" 
+          style="margin-top: 10px;  border: 1px solid #888; padding: 12px;"></textarea>
           <label for="menu-img">link รูปภาพเมนู</label><br>
-          <input placeholder="ชื่อเมนู" id="menu-img" name="menu-img" style="padding: 10px;" class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
+          <input placeholder="ชื่อเมนู" id="menu-img" name="menu-img" style="padding: 10px;" 
+          class="peer h-full w-full border-b border-blue-gray-200 
+          bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal 
+          text-blue-gray-700 outline outline-0 transition-all 
+          placeholder-shown:border-blue-gray-200 focus:border-gray-900 
+          focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
           <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
             <button id="updateContainer" style="padding: 10px; background-color: rgb(158, 251, 225); margin-top: 10px; border-radius: 10px; font-size: 16px;">ดูตัวอย่างเมนูที่เพิ่ม</button>
             <button name="sub" id="sub" style="padding: 10px; background-color: #7EFC4E ; margin-top: 6px; margin-bottom: 20px; border-radius: 10px;">ยืนยันการเพิ่มเมนู</button>

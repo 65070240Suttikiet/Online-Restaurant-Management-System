@@ -139,9 +139,7 @@ if (!$db) {
     }
 
     .info {
-      /* background-color: rgb(245, 242, 242); */
       border-radius: 10px;
-      /* box-shadow: 0px 10px 10px rgba(0, 0, 0, .2); */
       width: 500px;
       padding: 20px;
     }
@@ -158,7 +156,7 @@ if (!$db) {
       <a href="#" onclick="back()"><i class="fa-solid fa-arrow-left"></i></a>
     </div>
     <ul class="menu">
-      <li>View Menu</li>
+      <li>ดูรายละเอียดเมนู</li>
     </ul>
     <div class="search">
       <i class="fa-solid fa-burger"></i>
@@ -213,13 +211,27 @@ if (!$db) {
           $result = $db->query($choose);
           $row = $result->fetchArray(SQLITE3_ASSOC);
           ?>
-          <input name="course-name" readonly id="course_name" value=<?php echo $row['course_name'] ?> style="margin-bottom: 20px; padding: 10px;" class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
+          <input name="course-name" readonly id="course_name" value=<?php echo $row['course_name'] ?> 
+          style="margin-bottom: 20px; padding: 10px;" 
+          class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans 
+          text-sm font-normal text-blue-gray-700 outline outline-0 transition-all 
+          placeholder-shown:border-blue-gray-200 focus:border-gray-900 
+          focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
           <label for="menu-name">ชื่อเมนู</label><br>
-          <input readonly="readonly" name="menu-name" id="menu-name" placeholder="ชื่อเมนู" style="margin-bottom: 10px; padding: 10px;" class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
+          <input readonly="readonly" name="menu-name" id="menu-name" placeholder="ชื่อเมนู" 
+          style="margin-bottom: 10px; padding: 10px;" 
+          class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans 
+          text-sm font-normal text-blue-gray-700 outline outline-0 transition-all 
+          placeholder-shown:border-blue-gray-200 focus:border-gray-900 focus:outline-0 
+          disabled:border-0 disabled:bg-blue-gray-50" />
           <label for="menu-detail">รายละเอียดเมนู</label><br>
           <textarea name="menu-detail" id="menu-detail" cols="55" rows="10" style="margin-top: 10px;  border: 1px solid #888; padding: 12px;"></textarea>
           <label for="menu-img">link รูปภาพเมนู</label><br>
-          <input placeholder="ชื่อเมนู" id="menu-img" name="menu-img" style="padding: 10px;" class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
+          <input placeholder="ชื่อเมนู" id="menu-img" name="menu-img" style="padding: 10px;" 
+          class="peer h-full w-full border-b border-blue-gray-200 bg-transparent 
+          pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 
+          transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-900 
+          focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
           <div style="display: flex; flex-direction: row; justify-content: flex-end; gap: 10px; margin-top: 10px;">
             <button id="updateContainer" style="padding: 10px; background-color: rgb(158, 251, 225); margin-top: 10px; border-radius: 10px; font-size: 16px;">ดูตัวอย่างเมนู</button>
             <button name="edit" id="edit" style="padding: 10px; background-color: rgb(255, 251, 121); margin-top: 10px; border-radius: 10px;">แก้ไข</button>
