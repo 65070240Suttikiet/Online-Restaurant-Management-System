@@ -11,29 +11,15 @@ class MyDB extends SQLite3
     }
 }
 $db = new MyDB();
-
 $room = $_SESSION['room_id'];
-
 $currentDate = date("Y-m-d");
-// echo $currentDate;
-
-// ค้นหา booking_id ที่มี booking_date เท่ากับวันปัจจุบัน
 $bookdate_query = "SELECT booking_id FROM booking WHERE booking_date = '$currentDate'";
 $bookdate_result = $db->query($bookdate_query);
-// ถ้ามีการค้นพบ booking_id ในวันนี้
-
-    // สร้างอาร์เรย์เก็บ booking_id
     $booking_ids = [];
-
-    // เก็บ booking_id ลงในอาร์เรย์
     while ($row = $bookdate_result->fetchArray(SQLITE3_ASSOC)) {
         $booking_ids[] = $row['booking_id'];
     }
-
-    // แปลงอาร์เรย์เป็น string สำหรับใช้ในคำสั่ง SQL
     $booking_ids_str = implode(",", $booking_ids);
-
-    // ค้นหาข้อมูลในตาราง order โดยใช้ booking_id ที่ได้มา
     $wait_query = "SELECT * FROM orders 
                JOIN booking 
                JOIN course
@@ -43,7 +29,6 @@ $bookdate_result = $db->query($bookdate_query);
                AND orders.order_status = 'wait'
                AND booking.room_id = $room";
     $wait_result = $db->query($wait_query);
-
 ?>
 
 <!DOCTYPE html>
@@ -173,7 +158,6 @@ $bookdate_result = $db->query($bookdate_query);
             justify-content: space-between;
             align-items: center;
             max-height: calc(100% - 40px);
-            /* Adjust according to your design */
             overflow-y: auto;
         }
     </style>
@@ -224,22 +208,13 @@ $bookdate_result = $db->query($bookdate_query);
         
         $currentDate = date("Y-m-d");
 
-        // ค้นหา booking_id ที่มี booking_date เท่ากับวันปัจจุบัน
         $bookdate_query = "SELECT booking_id FROM booking WHERE booking_date = '$currentDate'";
         $bookdate_result = $db->query($bookdate_query);
-
-            // สร้างอาร์เรย์เก็บ booking_id
             $booking_ids = [];
-
-            // เก็บ booking_id ลงในอาร์เรย์
             while ($row = $bookdate_result->fetchArray(SQLITE3_ASSOC)) {
                 $booking_ids[] = $row['booking_id'];
             }
-
-            // แปลงอาร์เรย์เป็น string สำหรับใช้ในคำสั่ง SQL
             $booking_ids_str = implode(",", $booking_ids);
-
-            // ค้นหาข้อมูลในตาราง order โดยใช้ booking_id ที่ได้มา
             $cooking_query = "SELECT * FROM orders 
                            JOIN booking 
                            JOIN course
@@ -250,7 +225,6 @@ $bookdate_result = $db->query($bookdate_query);
                            AND booking.room_id = $room";
 
             $cooking_result = $db->query($cooking_query); 
-
         ?>
 
 
@@ -274,23 +248,13 @@ $bookdate_result = $db->query($bookdate_query);
 
         <?php
         $currentDate = date("Y-m-d");
-
-        // ค้นหา booking_id ที่มี booking_date เท่ากับวันปัจจุบัน
         $bookdate_query = "SELECT booking_id FROM booking WHERE booking_date = '$currentDate'";
         $bookdate_result = $db->query($bookdate_query);
-
-            // สร้างอาร์เรย์เก็บ booking_id
             $booking_ids = [];
-
-            // เก็บ booking_id ลงในอาร์เรย์
             while ($row = $bookdate_result->fetchArray(SQLITE3_ASSOC)) {
                 $booking_ids[] = $row['booking_id'];
             }
-
-            // แปลงอาร์เรย์เป็น string สำหรับใช้ในคำสั่ง SQL
             $booking_ids_str = implode(",", $booking_ids);
-
-            // ค้นหาข้อมูลในตาราง order โดยใช้ booking_id ที่ได้มา
             $cooked_query = "SELECT * FROM orders 
                            JOIN booking 
                            JOIN course
@@ -315,7 +279,6 @@ $bookdate_result = $db->query($bookdate_query);
                         <p style="width: 120px;"> <?php echo $row['course_name'] ?></p>
                         <p style="width: 50px;">ที่นั่ง : <?php echo $row['seat_id'] ?></p>
                     </form>
-                    <!-- <p style="background-color: rgb(103, 255, 86); padding: 4px; font-size: 10px; border-radius: 10px;"><?php echo $row['order_status'] ?></p> -->
                 </div>
             <?php } ?>
         </div>

@@ -15,7 +15,6 @@ $cus_id = $_SESSION["cus_id"];
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <title>ประวัติการจอง</title>
     <style>
-
         @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap");
 
         * {
@@ -119,7 +118,6 @@ $cus_id = $_SESSION["cus_id"];
         .content {
             height: 100vh;
             background-image: url("https://i.pinimg.com/564x/6f/b1/e4/6fb1e474e6cf56f7fea5497d6be661b3.jpg");
-            /* background-color: rgb(98, 195, 252); */
             object-fit: cover;
             padding: 50px;
             display: flex;
@@ -147,7 +145,6 @@ $cus_id = $_SESSION["cus_id"];
             margin-top: 20px;
             padding: 0px 30px;
             width: 100%;
-            /* background-color: aquamarine; */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -156,10 +153,9 @@ $cus_id = $_SESSION["cus_id"];
 </head>
 
 <body>
-<header>
+    <header>
         <div class="logo">
-            <img src="logo.png"
-                alt="">
+            <img src="logo.png" alt="">
             <a href="home.php" class="header__logo">Gangnam Omakase</a>
         </div>
         <nav class="nav" id="nav-menu">
@@ -176,71 +172,61 @@ $cus_id = $_SESSION["cus_id"];
     <div class="content">
         <div class="detail">
             <?php
-            class MyDB extends SQLite3 {
-                function __construct() {
-                   $this->open('db/omakase.db');
+            class MyDB extends SQLite3
+            {
+                function __construct()
+                {
+                    $this->open('db/omakase.db');
                 }
-             }
-            
-             // 2. Open Database 
-             $db = new MyDB();
+            }
+
+            // 2. Open Database 
+            $db = new MyDB();
             if (isset($_GET['booking_id'])) {
                 $booking_id = $_GET['booking_id'];
-
                 $sql = "SELECT booking.booking_id, customers.first_name, customers.last_name, booking.booking_date, booking.total_price, booking.booking_status, booking.course_id, booking.seat_id, course.course_name, room.room_name
                         FROM booking 
                         JOIN customers ON booking.cus_id = customers.cus_id 
                         JOIN course ON booking.course_id = course.course_id
                         JOIN room ON booking.room_id = room.room_id
                         WHERE booking.booking_id = '$booking_id';";
-
                 $result = $db->query($sql);
+                $row = $result->fetchArray(SQLITE3_ASSOC);
 
-              
-                    $row = $result->fetchArray(SQLITE3_ASSOC);
-
-                    // Check if booking status is 'checked' to allow cancellation
             ?>
 
-                    <h1 style="margin-top: 5px; margin-bottom: 10px; font-size: 18px; background-color: #f8dc96; width: 100%; text-align: center; border-radius: 20px;">รายละเอียดการจอง</h1>
-                    <p style="margin-top: 20px;"><?php echo "Booking ID : " . $row['booking_id'] ?></p>
-                    <p><?php echo "ชื่อ : " . $row['first_name'] . " " . $row['last_name'] ?></p>
-                    <p style="margin-bottom: 10px;"><?php echo "วันที่จอง : " . $row['booking_date'] ?></p>
-                    <div class="pro">
-                        <p>Course : </p>
-                        <p><?php echo $row['course_name'] ?></p>
-                    </div>
-                    <div class="pro">
-                        <p>Room ID : </p>
-                        <p><?php echo $row['room_name'] ?></p>
-                    </div>
-                    <div class="pro">
-                        <p>Seat ID : </p>
-                        <p><?php echo $row['seat_id'] ?></p>
-                    </div>
-                    <p style="margin-top: 20px;">ราคา: <?php echo $row['total_price'] ?></p>
-                    <p style="color: Blue">Status: <?php echo $row['booking_status'] ?> </p>
-
-                    <?php
-
-
-                    ?>
-                    <?php
-                    if ($row['booking_status'] != 'checked') {
-                    ?>
-                        <form action="delete.php" method="get">
-                            <input type="text" name="customer_id" value="<?php echo $cus_id; ?>" class="hidden">
-                            <input type="hidden" name="delete_booking_id" value="<?php echo $row['booking_id']; ?>">
-                            <button type="submit" onclick="return confirm('คุณต้องการยกเลิกการจองนี้ ?')" style="width: 100%; margin-top: 10px; background-color: #91FFC0; padding: 8px; width: 150px; border-radius: 10px; color: rgb(22, 21, 21)">ยกเลิกการจอง</button>
-                        </form>
+                <h1 style="margin-top: 5px; margin-bottom: 10px; font-size: 18px; background-color: #f8dc96; width: 100%; text-align: center; border-radius: 20px;">รายละเอียดการจอง</h1>
+                <p style="margin-top: 20px;"><?php echo "Booking ID : " . $row['booking_id'] ?></p>
+                <p><?php echo "ชื่อ : " . $row['first_name'] . " " . $row['last_name'] ?></p>
+                <p style="margin-bottom: 10px;"><?php echo "วันที่จอง : " . $row['booking_date'] ?></p>
+                <div class="pro">
+                    <p>Course : </p>
+                    <p><?php echo $row['course_name'] ?></p>
+                </div>
+                <div class="pro">
+                    <p>Room ID : </p>
+                    <p><?php echo $row['room_name'] ?></p>
+                </div>
+                <div class="pro">
+                    <p>Seat ID : </p>
+                    <p><?php echo $row['seat_id'] ?></p>
+                </div>
+                <p style="margin-top: 20px;">ราคา: <?php echo $row['total_price'] ?></p>
+                <p style="color: Blue">Status: <?php echo $row['booking_status'] ?> </p>
+                <?php
+                ?>
+                <?php
+                if ($row['booking_status'] != 'checked' && $row['booking_status'] != 'check-in') {
+                ?>
+                    <form action="delete.php" method="get">
+                        <input type="text" name="customer_id" value="<?php echo $cus_id; ?>" class="hidden">
+                        <input type="hidden" name="delete_booking_id" value="<?php echo $row['booking_id']; ?>">
+                        <button type="submit" onclick="return confirm('คุณต้องการยกเลิกการจองนี้ ?')" style="width: 100%; margin-top: 10px; background-color: #91FFC0; padding: 8px; width: 150px; border-radius: 10px; color: rgb(22, 21, 21)">ยกเลิกการจอง</button>
+                    </form>
             <?php
-                    }
                 }
-            
-
+            }
             ?>
-
-
             <a href="history.php">
                 <button style="width: 100%; margin: 20px; background-color: #72bfeb; padding: 8px; width: 150px; border-radius: 10px; color: rgb(22, 21, 21)">ย้อนกลับ</button>
             </a>

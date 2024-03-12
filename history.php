@@ -249,7 +249,7 @@
                                 '<td class="px-6 py-4"><div style="width: 80px; background-color: #ffe946; border-radius:20px; text-align: center;">' . $row['booking_status'] . '</td>';
 
                             // Check if booking status is "booking" before displaying the view link
-                            if ($row['booking_status'] == 'booking' || $row['booking_status'] == 'checked') {
+                            if ($row['booking_status'] == 'booking' || $row['booking_status'] == 'checked' || $row['booking_status'] == 'check-in') {
                                 echo '<td class="px-6 py-4">' .
                                     '<a href="booking_details.php?booking_id=' . $row['booking_id'] .  '" class="view-link">view</a>
                                         </td>';

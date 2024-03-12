@@ -194,25 +194,20 @@ if (!$db) {
           $row =  $result->fetchArray(SQLITE3_ASSOC);
           ?>
           <input name="course-id" id="course_id" value=<?php echo $course_id ?> class="hidden" />
-          <input name="course-name" readonly id="course_name" value=<?php echo $row['course_name'] ?> style="margin-bottom: 20px; padding: 10px;" 
-          class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 
+          <input name="course-name" readonly id="course_name" value=<?php echo $row['course_name'] ?> style="margin-bottom: 20px; padding: 10px;" class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 
           font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all 
           placeholder-shown:border-blue-gray-200 focus:border-gray-900 focus:outline-0 
           disabled:border-0 disabled:bg-blue-gray-50" />
           <label for="menu-name">ชื่อของเมนู</label><br>
-          <input name="menu-name" id="menu-name" placeholder="ชื่อเมนู" 
-          style="margin-bottom: 10px; padding: 10px;" 
-          class="peer h-full w-full border-b border-blue-gray-200 bg-transparent 
+          <input name="menu-name" id="menu-name" placeholder="ชื่อเมนู" style="margin-bottom: 10px; padding: 10px;" class="peer h-full w-full border-b border-blue-gray-200 bg-transparent 
           pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 
           transition-all placeholder-shown:border-blue-gray-200 
           focus:border-gray-900 focus:outline-0 disabled:border-0 
           disabled:bg-blue-gray-50" />
           <label for="menu-detail">รายละเอียดเมนู</label><br>
-          <textarea name="menu-detail" id="menu-detail" cols="55" rows="10" 
-          style="margin-top: 10px;  border: 1px solid #888; padding: 12px;"></textarea>
+          <textarea name="menu-detail" id="menu-detail" cols="55" rows="10" style="margin-top: 10px;  border: 1px solid #888; padding: 12px;"></textarea>
           <label for="menu-img">link รูปภาพเมนู</label><br>
-          <input placeholder="ชื่อเมนู" id="menu-img" name="menu-img" style="padding: 10px;" 
-          class="peer h-full w-full border-b border-blue-gray-200 
+          <input placeholder="ชื่อเมนู" id="menu-img" name="menu-img" style="padding: 10px;" class="peer h-full w-full border-b border-blue-gray-200 
           bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal 
           text-blue-gray-700 outline outline-0 transition-all 
           placeholder-shown:border-blue-gray-200 focus:border-gray-900 

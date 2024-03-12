@@ -150,7 +150,6 @@ $result = $db->query($sql);
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        /* padding: 60px; */
         font-family: "Mitr", sans-serif;
 
     }
@@ -202,7 +201,7 @@ $result = $db->query($sql);
     </header>
 
     <div class="all">
-        <h1 class="text-6xl font-extrabold leading-none tracking-tight text-gray-900 md:text-6xl lg:text-6xl dark:text-white">คอร์สโอมากาเสะ</h1>
+        <h1 class="text-6xl font-extrabold leading-none tracking-tight text-gray-900 md:text-6xl lg:text-6xl">คอร์สโอมากาเสะ</h1>
         <br>
         <hr width="50%" />
         <div class="content">
@@ -225,7 +224,9 @@ $result = $db->query($sql);
                         </div>
                         <div class="p-6 pt-0 flex justify-end">
                             <input type="hidden" name="course_id" value="<?php echo $row['course_id'] ?>">
-                            <button data-ripple-light="true" type="submit" name="sub" class="select-none rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" style="background-color: #C51605;">
+                            <button data-ripple-light="true" type="submit" name="sub" class="select-none rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold text-white shadow-md 
+                            shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 
+                            focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" style="background-color: #C51605;">
                                 จอง
                             </button>
                         </div>
@@ -233,7 +234,6 @@ $result = $db->query($sql);
                 </form>
             <?php } ?>
         </div>
-
     </div>
 
 

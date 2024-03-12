@@ -30,16 +30,11 @@ $cus_id = $_SESSION["cus_id"];
         $result = $db->query($sql);
         $seatid= $result->fetchArray(SQLITE3_ASSOC);;
         $seat = $seatid["seat_id"];
-        $sql3 = "UPDATE seat SET seat_status = 'av' WHERE seat_id = '$seat'";
-        $result3 = $db->query($sql3);
         $sql = "DELETE FROM booking WHERE booking_id = '$delete_booking_id'";
         echo $delete_booking_id;
-        // ทำการลบการจอง
         if ($db->query($sql)) {
-            // หากลบสำเร็จ ให้เปลี่ยนเส้นทาง URL ไปยังหน้าประวัติการจอง
             echo "<script>window.location.href = 'history.php'</script>";
         } else {
-            // หากเกิดข้อผิดพลาดในการลบ ให้แสดงข้อความข้อผิดพลาด
             echo "Error deleting";
         }
     }
