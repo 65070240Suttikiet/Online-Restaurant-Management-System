@@ -208,7 +208,7 @@ $bookdate_result = $db->query($bookdate_query);
             <p style="padding: 10px 20px;">เมนูที่ต้องทำ</p>
             <?php
             while ($row = $wait_result->fetchArray(SQLITE3_ASSOC)) { ?>
-                <div class="menu-card" style="background-color: rgba(249, 69, 60, 0.7); font-size: 12px">
+                <div class="menu-card" style="background-color: #F7C7F0 ; font-size: 12px">
                     <form action="" style="display: flex; align-items: center; gap: 10px; width: 350px;" method="post">
                         <input type="checkbox" name="order_id" value="<?php echo $row['order_id'] ?>" onchange="waitingStatus(this)">
                         <label style="width: 110px;  for=""><?php echo $row['menu_name'] ?></label>
